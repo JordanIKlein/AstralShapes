@@ -117,7 +117,6 @@ var correctTimer = Timer()
 var restartTimer = Timer()
 var playButton = SKSpriteNode()
 
-//Continuation Screen!
 //Background
 let continueBackground = SKSpriteNode()
 //Buttons/Labels
@@ -127,8 +126,7 @@ let scoreNumber = SKLabelNode(fontNamed: "Press Start 2P")
 let replayButton = UIButton(type:.system)
 let xpText = SKLabelNode(fontNamed: "Press Start 2P")
 // Allowing continue only once
-var continueVariable:Int = 1
-
+var continueBasic:Int = 1
 var highscoreArray = UserDefaults.standard.array(forKey: "highscore") as? [Int] ?? [0, 0, 0]
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
@@ -139,20 +137,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                        view.removeFromSuperview()
                    }
         }
-        removeExtras()
-        if continueVariable != 1 {
-            continueFunc()
-            seconds = 20.0
-            physics()
-            constantUpdate()
-            newSetup()
-            downbackground()
-            addingScoreTimeLabels()
-            runButton()
-        } else {
-        
+        removeAllActions()
+        removeAllChildren()
         score = 0
-        continueVariable = 1
+        continueBasic = 1
         physics() //Physics
         downbackground() // Moving Background
         addingScoreTimeLabels() // adding score and time labels
@@ -160,7 +148,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         runButton() // button behind the main shape we are looking for
         shootingStarTimer = Timer.scheduledTimer(withTimeInterval: 4, repeats: true, block: {_ in self.shootingStar()})
         }
-    }
+func continueTrue(){
+    removeExtras()
+    continueFunc()
+    seconds = 20.0
+    physics()
+    constantUpdate()
+    newSetup()
+    downbackground()
+    addingScoreTimeLabels()
+    runButton()
+}
     func runButton() {
         playButton.position = CGPoint(x: round(screenWidth/2), y: round(screenHeight * 0.2))
         playButton.size = CGSize(width: 75, height: 75)
@@ -181,9 +179,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     func continueGame(){
         // Adding the continue button for a continuation of the game.
-        if continueVariable == 1 {
-            self.view!.addSubview(continueGameB)
-        }
         // Main Menu Button
         mainMenuS.frame = CGRect (x:frame.midX - 125, y:frame.maxY * 0.2 , width: 250, height: 40)
         mainMenuS.setTitle("Main Menu", for: UIControl.State.normal)
@@ -252,6 +247,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         replayButton.titleLabel!.font = UIFont(name: "Press Start 2P", size: 27)
         replayButton.titleLabel!.textAlignment = NSTextAlignment.center
         self.view!.addSubview(replayButton)
+       
         
         guard score > highscoreArray.last ?? 0 else { return }
         highscoreArray.append(score)  // add new core to array
@@ -259,19 +255,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         UserDefaults.standard.set(Array(highscoreArray.prefix(3)), forKey: "highscore")
     }
     func continueFunc(){
-            scoreNumber.removeFromParent()
-            scoreLabel.removeFromParent()
-            xpText.removeFromParent()
-                for view in view!.subviews {
-                    if view is UIButton{
-                        view.removeFromSuperview()
-                    }
-                }
+        scoreNumber.removeFromParent()
+        scoreLabel.removeFromParent()
+        for view in view!.subviews {
+            if view is UIButton{
+                view.removeFromSuperview()
+            }
         }
+    }
     @objc func mainMenuScene(sender: UIButton!) { // sending the User back to the Game
         removeExtras()
-        if continueVariable == 2 {
-            continueVariable = continueVariable - 1
+        if continueBasic == 2 {
+            continueBasic = continueBasic - 1
         }
         // Highscore change
         playButton.removeFromParent()
@@ -291,8 +286,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     @objc func gameScene2(sender: UIButton!) { // sending the User back to the Game
         removeExtras()
-        if continueVariable == 2 {
-            continueVariable = continueVariable - 1
+        if continueBasic == 2 {
+            continueBasic = continueBasic - 1
         }
         playButton.removeFromParent()
         scoreAmount.removeFromParent()
@@ -504,844 +499,245 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 
     func addingPlayerShape(){
         //Play positions
-        if userLevel < 5 {
-        let arrayShapes:[SKSpriteNode] = [triangleRed,triangleGreen,triangleBlue,circleGreen,circleBlue,circleRed,squareGreen,squareRed,squareBlue, hexagonGreen, hexagonBlue,hexagonRed]
-        let shuffleShape = arrayShapes.shuffled()
-        playerShape = shuffleShape.randomElement()! //the player's Shape
-        let bottom = CGPoint(x: round(screenWidth/2), y: round(screenHeight * 0.2))
-        playerShape.position = bottom
-        playerShape.zPosition = 100
+//        if userLevel < 5 {
+//        let arrayShapes:[SKSpriteNode] = [triangleRed,triangleGreen,triangleBlue,circleGreen,circleBlue,circleRed,squareGreen,squareRed,squareBlue, hexagonGreen, hexagonBlue,hexagonRed]
+//        let shuffleShape = arrayShapes.shuffled()
+//        playerShape = shuffleShape.randomElement()! //the player's Shape
+//        let bottom = CGPoint(x: round(screenWidth/2), y: round(screenHeight * 0.2))
+//        playerShape.position = bottom
+//        playerShape.zPosition = 100
+//
+//        if playerShape == circleBlue{
+//            playerShape.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: circleBlue.size.width, height: circleBlue.size.height))
+//            playerShape.physicsBody?.categoryBitMask = CollisionType.playerShape.rawValue
+//            playerShape.name = "playerShape"
+//
+//        }
+//        if playerShape == circleGreen{
+//            playerShape.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: circleGreen.size.width, height: circleGreen.size.height))
+//            playerShape.physicsBody?.categoryBitMask = CollisionType.playerShape.rawValue
+//            playerShape.name = "playerShape"
+//
+//        }
+//        if playerShape == circleRed{
+//            playerShape.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: circleRed.size.width, height: circleRed.size.height))
+//            playerShape.physicsBody?.categoryBitMask = CollisionType.playerShape.rawValue
+//            playerShape.name = "playerShape"
+//
+//        }
+//        if playerShape == triangleBlue{
+//            playerShape.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: triangleBlue.size.width, height: triangleBlue.size.height))
+//            playerShape.physicsBody?.categoryBitMask = CollisionType.playerShape.rawValue
+//            playerShape.name = "playerShape"
+//
+//        }
+//        if playerShape == triangleGreen{
+//            playerShape.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: triangleGreen.size.width, height: triangleGreen.size.height))
+//            playerShape.physicsBody?.categoryBitMask = CollisionType.playerShape.rawValue
+//            playerShape.name = "playerShape"
+//
+//        }
+//        if playerShape == triangleRed{
+//            playerShape.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: triangleRed.size.width, height: triangleRed.size.height))
+//            playerShape.physicsBody?.categoryBitMask = CollisionType.playerShape.rawValue
+//            playerShape.name = "playerShape"
+//
+//        }
+//        if playerShape == squareBlue{
+//            playerShape.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: squareBlue.size.width, height: squareBlue.size.height))
+//            playerShape.physicsBody?.categoryBitMask = CollisionType.playerShape.rawValue
+//            playerShape.name = "playerShape"
+//
+//        }
+//        if playerShape == squareGreen{
+//            playerShape.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: squareGreen.size.width, height: squareGreen.size.height))
+//            playerShape.physicsBody?.categoryBitMask = CollisionType.playerShape.rawValue
+//            playerShape.name = "playerShape"
+//
+//        }
+//        if playerShape == squareRed{
+//            playerShape.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: squareRed.size.width, height: squareRed.size.height))
+//            playerShape.physicsBody?.categoryBitMask = CollisionType.playerShape.rawValue
+//            playerShape.name = "playerShape"
+//
+//        }
+//        if playerShape == hexagonBlue{
+//            playerShape.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: hexagonBlue.size.width, height: hexagonBlue.size.height))
+//            playerShape.physicsBody?.categoryBitMask = CollisionType.playerShape.rawValue
+//            playerShape.name = "playerShape"
+//
+//        }
+//        if playerShape == hexagonGreen{
+//            playerShape.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: hexagonGreen.size.width, height: hexagonGreen.size.height))
+//            playerShape.physicsBody?.categoryBitMask = CollisionType.playerShape.rawValue
+//            playerShape.name = "playerShape"
+//
+//        }
+//        if playerShape == hexagonRed{
+//            playerShape.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: hexagonRed.size.width, height: hexagonRed.size.height))
+//            playerShape.physicsBody?.categoryBitMask = CollisionType.playerShape.rawValue
+//            playerShape.name = "playerShape"
+//
+//        }
+//        addChild(playerShape)
+//
+//        } else if userLevel >= 5
+        let arrayShapes:[SKSpriteNode] = [triangleRed,triangleGreen,triangleBlue,trianglePurple,triangleOrange,triangleYellow,circleGreen,circleBlue,circleRed,circleYellow,circlePurple,circleOrange,squareGreen,squareRed,squareBlue,squareYellow,squareOrange,squarePurple,hexagonGreen, hexagonBlue,hexagonRed,hexagonOrange,hexagonPurple,hexagonYellow]
         
-        if playerShape == circleBlue{
-            playerShape.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: circleBlue.size.width, height: circleBlue.size.height))
-            playerShape.physicsBody?.categoryBitMask = CollisionType.playerShape.rawValue
-            playerShape.name = "playerShape"
+            let shuffleShape = arrayShapes.shuffled()
+            playerShape = shuffleShape.randomElement()! //the player's Shape
+            let bottom = CGPoint(x: round(screenWidth/2), y: round(screenHeight * 0.2))
+            playerShape.position = bottom
+            playerShape.zPosition = 1000
             
-        }
-        if playerShape == circleGreen{
-            playerShape.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: circleGreen.size.width, height: circleGreen.size.height))
-            playerShape.physicsBody?.categoryBitMask = CollisionType.playerShape.rawValue
-            playerShape.name = "playerShape"
-        
-        }
-        if playerShape == circleRed{
-            playerShape.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: circleRed.size.width, height: circleRed.size.height))
-            playerShape.physicsBody?.categoryBitMask = CollisionType.playerShape.rawValue
-            playerShape.name = "playerShape"
-            
-        }
-        if playerShape == triangleBlue{
-            playerShape.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: triangleBlue.size.width, height: triangleBlue.size.height))
-            playerShape.physicsBody?.categoryBitMask = CollisionType.playerShape.rawValue
-            playerShape.name = "playerShape"
-           
-        }
-        if playerShape == triangleGreen{
-            playerShape.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: triangleGreen.size.width, height: triangleGreen.size.height))
-            playerShape.physicsBody?.categoryBitMask = CollisionType.playerShape.rawValue
-            playerShape.name = "playerShape"
-     
-        }
-        if playerShape == triangleRed{
-            playerShape.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: triangleRed.size.width, height: triangleRed.size.height))
-            playerShape.physicsBody?.categoryBitMask = CollisionType.playerShape.rawValue
-            playerShape.name = "playerShape"
-         
-        }
-        if playerShape == squareBlue{
-            playerShape.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: squareBlue.size.width, height: squareBlue.size.height))
-            playerShape.physicsBody?.categoryBitMask = CollisionType.playerShape.rawValue
-            playerShape.name = "playerShape"
-    
-        }
-        if playerShape == squareGreen{
-            playerShape.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: squareGreen.size.width, height: squareGreen.size.height))
-            playerShape.physicsBody?.categoryBitMask = CollisionType.playerShape.rawValue
-            playerShape.name = "playerShape"
-     
-        }
-        if playerShape == squareRed{
-            playerShape.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: squareRed.size.width, height: squareRed.size.height))
-            playerShape.physicsBody?.categoryBitMask = CollisionType.playerShape.rawValue
-            playerShape.name = "playerShape"
-         
-        }
-        if playerShape == hexagonBlue{
-            playerShape.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: hexagonBlue.size.width, height: hexagonBlue.size.height))
-            playerShape.physicsBody?.categoryBitMask = CollisionType.playerShape.rawValue
-            playerShape.name = "playerShape"
-         
-        }
-        if playerShape == hexagonGreen{
-            playerShape.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: hexagonGreen.size.width, height: hexagonGreen.size.height))
-            playerShape.physicsBody?.categoryBitMask = CollisionType.playerShape.rawValue
-            playerShape.name = "playerShape"
-            
-        }
-        if playerShape == hexagonRed{
-            playerShape.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: hexagonRed.size.width, height: hexagonRed.size.height))
-            playerShape.physicsBody?.categoryBitMask = CollisionType.playerShape.rawValue
-            playerShape.name = "playerShape"
-            
-        }
-        addChild(playerShape)
-            
-        } else if userLevel >= 5 {
-            let arrayShapes:[SKSpriteNode] = [triangleRed,triangleGreen,triangleBlue,trianglePurple,triangleOrange,triangleYellow,circleGreen,circleBlue,circleRed,circleYellow,circlePurple,circleOrange,squareGreen,squareRed,squareBlue,squareYellow,squareOrange,squarePurple,hexagonGreen, hexagonBlue,hexagonRed,hexagonOrange,hexagonPurple,hexagonYellow]
-            
-                let shuffleShape = arrayShapes.shuffled()
-                playerShape = shuffleShape.randomElement()! //the player's Shape
-                let bottom = CGPoint(x: round(screenWidth/2), y: round(screenHeight * 0.2))
-                playerShape.position = bottom
-                playerShape.zPosition = 1000
+            if playerShape == circleBlue{
+                playerShape.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: circleBlue.size.width, height: circleBlue.size.height))
+                playerShape.physicsBody?.categoryBitMask = CollisionType.playerShape.rawValue
+                playerShape.name = "playerShape"
                 
-                if playerShape == circleBlue{
-                    playerShape.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: circleBlue.size.width, height: circleBlue.size.height))
-                    playerShape.physicsBody?.categoryBitMask = CollisionType.playerShape.rawValue
-                    playerShape.name = "playerShape"
-                    
-                }
-                if playerShape == circleGreen{
-                    playerShape.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: circleGreen.size.width, height: circleGreen.size.height))
-                    playerShape.physicsBody?.categoryBitMask = CollisionType.playerShape.rawValue
-                    playerShape.name = "playerShape"
+            }
+            if playerShape == circleGreen{
+                playerShape.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: circleGreen.size.width, height: circleGreen.size.height))
+                playerShape.physicsBody?.categoryBitMask = CollisionType.playerShape.rawValue
+                playerShape.name = "playerShape"
+            
+            }
+            if playerShape == circleRed{
+                playerShape.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: circleRed.size.width, height: circleRed.size.height))
+                playerShape.physicsBody?.categoryBitMask = CollisionType.playerShape.rawValue
+                playerShape.name = "playerShape"
                 
-                }
-                if playerShape == circleRed{
-                    playerShape.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: circleRed.size.width, height: circleRed.size.height))
-                    playerShape.physicsBody?.categoryBitMask = CollisionType.playerShape.rawValue
-                    playerShape.name = "playerShape"
-                    
-                }
-                if playerShape == circleYellow{
-                    playerShape.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: circleBlue.size.width, height: circleBlue.size.height))
-                    playerShape.physicsBody?.categoryBitMask = CollisionType.playerShape.rawValue
-                    playerShape.name = "playerShape"
-                    
-                }
-                if playerShape == circleOrange{
-                    playerShape.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: circleGreen.size.width, height: circleGreen.size.height))
-                    playerShape.physicsBody?.categoryBitMask = CollisionType.playerShape.rawValue
-                    playerShape.name = "playerShape"
+            }
+            if playerShape == circleYellow{
+                playerShape.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: circleBlue.size.width, height: circleBlue.size.height))
+                playerShape.physicsBody?.categoryBitMask = CollisionType.playerShape.rawValue
+                playerShape.name = "playerShape"
                 
-                }
-                if playerShape == circlePurple{
-                    playerShape.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: circleRed.size.width, height: circleRed.size.height))
-                    playerShape.physicsBody?.categoryBitMask = CollisionType.playerShape.rawValue
-                    playerShape.name = "playerShape"
-                    
-                }
-                if playerShape == triangleBlue{
-                    playerShape.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: triangleBlue.size.width, height: triangleBlue.size.height))
-                    playerShape.physicsBody?.categoryBitMask = CollisionType.playerShape.rawValue
-                    playerShape.name = "playerShape"
-                   
-                }
-                if playerShape == triangleGreen{
-                    playerShape.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: triangleGreen.size.width, height: triangleGreen.size.height))
-                    playerShape.physicsBody?.categoryBitMask = CollisionType.playerShape.rawValue
-                    playerShape.name = "playerShape"
+            }
+            if playerShape == circleOrange{
+                playerShape.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: circleGreen.size.width, height: circleGreen.size.height))
+                playerShape.physicsBody?.categoryBitMask = CollisionType.playerShape.rawValue
+                playerShape.name = "playerShape"
+            
+            }
+            if playerShape == circlePurple{
+                playerShape.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: circleRed.size.width, height: circleRed.size.height))
+                playerShape.physicsBody?.categoryBitMask = CollisionType.playerShape.rawValue
+                playerShape.name = "playerShape"
+                
+            }
+            if playerShape == triangleBlue{
+                playerShape.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: triangleBlue.size.width, height: triangleBlue.size.height))
+                playerShape.physicsBody?.categoryBitMask = CollisionType.playerShape.rawValue
+                playerShape.name = "playerShape"
+               
+            }
+            if playerShape == triangleGreen{
+                playerShape.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: triangleGreen.size.width, height: triangleGreen.size.height))
+                playerShape.physicsBody?.categoryBitMask = CollisionType.playerShape.rawValue
+                playerShape.name = "playerShape"
+         
+            }
+            if playerShape == triangleRed{
+                playerShape.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: triangleRed.size.width, height: triangleRed.size.height))
+                playerShape.physicsBody?.categoryBitMask = CollisionType.playerShape.rawValue
+                playerShape.name = "playerShape"
              
-                }
-                if playerShape == triangleRed{
-                    playerShape.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: triangleRed.size.width, height: triangleRed.size.height))
-                    playerShape.physicsBody?.categoryBitMask = CollisionType.playerShape.rawValue
-                    playerShape.name = "playerShape"
-                 
-                }
-                if playerShape == triangleYellow{
-                       playerShape.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: triangleBlue.size.width, height: triangleBlue.size.height))
-                       playerShape.physicsBody?.categoryBitMask = CollisionType.playerShape.rawValue
-                       playerShape.name = "playerShape"
-                      
-                   }
-                if playerShape == triangleOrange{
-                       playerShape.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: triangleGreen.size.width, height: triangleGreen.size.height))
-                       playerShape.physicsBody?.categoryBitMask = CollisionType.playerShape.rawValue
-                       playerShape.name = "playerShape"
+            }
+            if playerShape == triangleYellow{
+                   playerShape.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: triangleBlue.size.width, height: triangleBlue.size.height))
+                   playerShape.physicsBody?.categoryBitMask = CollisionType.playerShape.rawValue
+                   playerShape.name = "playerShape"
+                  
+               }
+            if playerShape == triangleOrange{
+                   playerShape.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: triangleGreen.size.width, height: triangleGreen.size.height))
+                   playerShape.physicsBody?.categoryBitMask = CollisionType.playerShape.rawValue
+                   playerShape.name = "playerShape"
+            
+               }
+            if playerShape == trianglePurple{
+                   playerShape.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: triangleRed.size.width, height: triangleRed.size.height))
+                   playerShape.physicsBody?.categoryBitMask = CollisionType.playerShape.rawValue
+                   playerShape.name = "playerShape"
                 
-                   }
-                if playerShape == trianglePurple{
-                       playerShape.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: triangleRed.size.width, height: triangleRed.size.height))
-                       playerShape.physicsBody?.categoryBitMask = CollisionType.playerShape.rawValue
-                       playerShape.name = "playerShape"
-                    
-                   }
-                if playerShape == squareBlue{
+               }
+            if playerShape == squareBlue{
+                playerShape.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: squareBlue.size.width, height: squareBlue.size.height))
+                playerShape.physicsBody?.categoryBitMask = CollisionType.playerShape.rawValue
+                playerShape.name = "playerShape"
+        
+            }
+            if playerShape == squareGreen{
+                playerShape.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: squareGreen.size.width, height: squareGreen.size.height))
+                playerShape.physicsBody?.categoryBitMask = CollisionType.playerShape.rawValue
+                playerShape.name = "playerShape"
+         
+            }
+            if playerShape == squareRed{
+                playerShape.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: squareRed.size.width, height: squareRed.size.height))
+                playerShape.physicsBody?.categoryBitMask = CollisionType.playerShape.rawValue
+                playerShape.name = "playerShape"
+             
+            }
+            if playerShape == squareYellow{
                     playerShape.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: squareBlue.size.width, height: squareBlue.size.height))
                     playerShape.physicsBody?.categoryBitMask = CollisionType.playerShape.rawValue
                     playerShape.name = "playerShape"
             
                 }
-                if playerShape == squareGreen{
+            if playerShape == squareOrange{
                     playerShape.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: squareGreen.size.width, height: squareGreen.size.height))
                     playerShape.physicsBody?.categoryBitMask = CollisionType.playerShape.rawValue
                     playerShape.name = "playerShape"
              
                 }
-                if playerShape == squareRed{
+            if playerShape == squarePurple{
                     playerShape.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: squareRed.size.width, height: squareRed.size.height))
                     playerShape.physicsBody?.categoryBitMask = CollisionType.playerShape.rawValue
                     playerShape.name = "playerShape"
                  
                 }
-                if playerShape == squareYellow{
-                        playerShape.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: squareBlue.size.width, height: squareBlue.size.height))
-                        playerShape.physicsBody?.categoryBitMask = CollisionType.playerShape.rawValue
-                        playerShape.name = "playerShape"
+            if playerShape == hexagonBlue{
+                playerShape.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: hexagonBlue.size.width, height: hexagonBlue.size.height))
+                playerShape.physicsBody?.categoryBitMask = CollisionType.playerShape.rawValue
+                playerShape.name = "playerShape"
+             
+            }
+            if playerShape == hexagonGreen{
+                playerShape.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: hexagonGreen.size.width, height: hexagonGreen.size.height))
+                playerShape.physicsBody?.categoryBitMask = CollisionType.playerShape.rawValue
+                playerShape.name = "playerShape"
                 
-                    }
-                if playerShape == squareOrange{
-                        playerShape.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: squareGreen.size.width, height: squareGreen.size.height))
-                        playerShape.physicsBody?.categoryBitMask = CollisionType.playerShape.rawValue
-                        playerShape.name = "playerShape"
-                 
-                    }
-                if playerShape == squarePurple{
-                        playerShape.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: squareRed.size.width, height: squareRed.size.height))
-                        playerShape.physicsBody?.categoryBitMask = CollisionType.playerShape.rawValue
-                        playerShape.name = "playerShape"
-                     
-                    }
-                if playerShape == hexagonBlue{
-                    playerShape.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: hexagonBlue.size.width, height: hexagonBlue.size.height))
-                    playerShape.physicsBody?.categoryBitMask = CollisionType.playerShape.rawValue
-                    playerShape.name = "playerShape"
-                 
-                }
-                if playerShape == hexagonGreen{
-                    playerShape.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: hexagonGreen.size.width, height: hexagonGreen.size.height))
-                    playerShape.physicsBody?.categoryBitMask = CollisionType.playerShape.rawValue
-                    playerShape.name = "playerShape"
-                    
-                }
-                if playerShape == hexagonRed{
-                    playerShape.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: hexagonRed.size.width, height: hexagonRed.size.height))
-                    playerShape.physicsBody?.categoryBitMask = CollisionType.playerShape.rawValue
-                    playerShape.name = "playerShape"
-                    
-                }
-                if playerShape == hexagonYellow{
-                    playerShape.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: hexagonBlue.size.width, height: hexagonBlue.size.height))
-                    playerShape.physicsBody?.categoryBitMask = CollisionType.playerShape.rawValue
-                    playerShape.name = "playerShape"
-                 
-                }
-                if playerShape == hexagonOrange{
-                    playerShape.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: hexagonGreen.size.width, height: hexagonGreen.size.height))
-                    playerShape.physicsBody?.categoryBitMask = CollisionType.playerShape.rawValue
-                    playerShape.name = "playerShape"
-                    
-                }
-                if playerShape == hexagonPurple{
-                    playerShape.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: hexagonRed.size.width, height: hexagonRed.size.height))
-                    playerShape.physicsBody?.categoryBitMask = CollisionType.playerShape.rawValue
-                    playerShape.name = "playerShape"
-                    
-                }
-                addChild(playerShape)
-        }
+            }
+            if playerShape == hexagonRed{
+                playerShape.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: hexagonRed.size.width, height: hexagonRed.size.height))
+                playerShape.physicsBody?.categoryBitMask = CollisionType.playerShape.rawValue
+                playerShape.name = "playerShape"
+                
+            }
+            if playerShape == hexagonYellow{
+                playerShape.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: hexagonBlue.size.width, height: hexagonBlue.size.height))
+                playerShape.physicsBody?.categoryBitMask = CollisionType.playerShape.rawValue
+                playerShape.name = "playerShape"
+             
+            }
+            if playerShape == hexagonOrange{
+                playerShape.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: hexagonGreen.size.width, height: hexagonGreen.size.height))
+                playerShape.physicsBody?.categoryBitMask = CollisionType.playerShape.rawValue
+                playerShape.name = "playerShape"
+                
+            }
+            if playerShape == hexagonPurple{
+                playerShape.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: hexagonRed.size.width, height: hexagonRed.size.height))
+                playerShape.physicsBody?.categoryBitMask = CollisionType.playerShape.rawValue
+                playerShape.name = "playerShape"
+                
+            }
+            addChild(playerShape)
     }
+    
     func randomShapes() {
-    //Creating an Array to represent the possible fake shapes
-    if userLevel < 5 {
-        var fakeArrayShapes:[SKSpriteNode] = [triRed,triGreen,triBlue,ciRed,ciGreen,ciBlue,sqRed,sqGreen,sqBlue,hexRed,hexGreen,hexBlue]
-        
-        if playerShape == circleBlue{
-            Shape1 = ciBlue
-            Shape1.name = "Shape1"
-            Shape1.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: ciBlue.size.width, height: ciBlue.size.height))
-            while let idx = fakeArrayShapes.firstIndex(of:ciBlue) {
-                fakeArrayShapes.remove(at: idx)
-            }
-        }
-        if playerShape == circleGreen{
-            Shape1 = ciGreen
-            Shape1.name = "Shape1"
-            Shape1.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: ciGreen.size.width, height: ciGreen.size.height))
-            while let idx = fakeArrayShapes.firstIndex(of:ciGreen) {
-                fakeArrayShapes.remove(at: idx)
-            }
-        }
-        if playerShape == circleRed{
-            Shape1 = ciRed
-            Shape1.name = "Shape1"
-            Shape1.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: ciRed.size.width, height: ciRed.size.height))
-            while let idx = fakeArrayShapes.firstIndex(of:ciRed) {
-                fakeArrayShapes.remove(at: idx)
-            }
-                    }
-        if playerShape == triangleBlue{
-            Shape1 = triBlue
-            Shape1.name = "Shape1"
-            Shape1.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: triBlue.size.width, height: triBlue.size.height))
-            while let idx = fakeArrayShapes.firstIndex(of:triBlue) {
-                fakeArrayShapes.remove(at: idx)
-            }
-                    }
-        if playerShape == triangleGreen{
-            Shape1 = triGreen
-            Shape1.name = "Shape1"
-            Shape1.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: triGreen.size.width, height: triGreen.size.height))
-            while let idx = fakeArrayShapes.firstIndex(of:triGreen) {
-                fakeArrayShapes.remove(at: idx)
-            }
-                    }
-        if playerShape == triangleRed{
-            Shape1 = triRed
-            Shape1.name = "Shape1"
-            Shape1.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: triRed.size.width, height: triRed.size.height))
-            while let idx = fakeArrayShapes.firstIndex(of:triRed) {
-                fakeArrayShapes.remove(at: idx)
-            }
-                    }
-        if playerShape == squareBlue{
-            Shape1 = sqBlue
-            Shape1.name = "Shape1"
-            Shape1.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: sqBlue.size.width, height: sqBlue.size.height))
-            while let idx = fakeArrayShapes.firstIndex(of:sqBlue) {
-                fakeArrayShapes.remove(at: idx)
-            }
-                    }
-        if playerShape == squareGreen{
-            Shape1 = sqGreen
-            Shape1.name = "Shape1"
-            Shape1.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: sqGreen.size.width, height: sqGreen.size.height))
-            while let idx = fakeArrayShapes.firstIndex(of:sqGreen) {
-                fakeArrayShapes.remove(at: idx)
-            }
-                    }
-        if playerShape == squareRed{
-            Shape1 = sqRed
-            Shape1.name = "Shape1"
-            Shape1.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: sqRed.size.width, height: sqRed.size.height))
-            while let idx = fakeArrayShapes.firstIndex(of:sqRed) {
-                fakeArrayShapes.remove(at: idx)
-            }
-                    }
-        if playerShape == hexagonBlue{
-            Shape1 = hexBlue
-            Shape1.name = "Shape1"
-            Shape1.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: hexBlue.size.width, height: hexBlue.size.height))
-            while let idx = fakeArrayShapes.firstIndex(of:hexBlue) {
-                fakeArrayShapes.remove(at: idx)
-            }
-                    }
-        if playerShape == hexagonGreen{
-            Shape1 = hexGreen
-            Shape1.name = "Shape1"
-            Shape1.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: hexGreen.size.width, height: hexGreen.size.height))
-            while let idx = fakeArrayShapes.firstIndex(of:hexGreen) {
-                fakeArrayShapes.remove(at: idx)
-            }
-                    }
-        if playerShape == hexagonRed{
-            Shape1 = hexRed
-            Shape1.name = "Shape1"
-            Shape1.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: hexRed.size.width, height: hexBlue.size.height))
-            while let idx = fakeArrayShapes.firstIndex(of:hexRed) {
-                fakeArrayShapes.remove(at: idx)
-            }
-                    }
-            var shuffledFakeShape = fakeArrayShapes.shuffled()
-            let Shape2 = shuffledFakeShape.last!
-            shuffledFakeShape.removeLast()
-            let Shape3 = shuffledFakeShape.last!
-            shuffledFakeShape.removeLast()
-            let Shape4 = shuffledFakeShape.last!
-            shuffledFakeShape.removeLast()
-            let Shape5 = shuffledFakeShape.last!
-            shuffledFakeShape.removeLast()
-            let Shape6 = shuffledFakeShape.last!
-            shuffledFakeShape.removeLast()
-            let Shape7 = shuffledFakeShape.last!
-            shuffledFakeShape.removeLast()
-            let Shape8 = shuffledFakeShape.last!
-            shuffledFakeShape.removeLast()
-            let Shape9 = shuffledFakeShape.last!
-            
-            //Shape 2
-            if Shape2 == ciRed {
-                Shape2.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: ciRed.size.width, height: ciRed.size.height))
-                Shape2.name = "Shape2"
-            }
-            if Shape2 == ciGreen{
-                Shape2.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: ciGreen.size.width, height: ciGreen.size.height))
-                Shape2.name = "Shape2"
-            }
-            if Shape2 == ciBlue{
-                Shape2.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: ciBlue.size.width, height: ciBlue.size.height))
-                Shape2.name = "Shape2"
-            }
-            if Shape2 == triRed{
-                Shape2.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: triRed.size.width, height: triRed.size.height))
-                Shape2.name = "Shape2"
-            }
-            if Shape2 == triGreen{
-                Shape2.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: triGreen.size.width, height: triGreen.size.height))
-                Shape2.name = "Shape2"
-            }
-            if Shape2 == triBlue{
-                Shape2.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: triBlue.size.width, height: triBlue.size.height))
-                Shape2.name = "Shape2"
-            }
-            if Shape2 == sqRed{
-                Shape2.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: sqRed.size.width, height: sqRed.size.height))
-                Shape2.name = "Shape2"
-            }
-            if Shape2 == sqGreen{
-                Shape2.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: sqGreen.size.width, height: sqGreen.size.height))
-                Shape2.name = "Shape2"
-            }
-            if Shape2 == sqBlue{
-                Shape2.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: sqBlue.size.width, height: sqBlue.size.height))
-                Shape2.name = "Shape2"
-            }
-            if Shape2 == hexRed{
-                Shape2.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: hexRed.size.width, height: hexRed.size.height))
-                Shape2.name = "Shape2"
-            }
-            if Shape2 == hexGreen{
-                Shape2.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: hexGreen.size.width, height: hexGreen.size.height))
-                Shape2.name = "Shape2"
-            }
-            if Shape2 == hexBlue{
-                Shape2.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: hexBlue.size.width, height: hexBlue.size.height))
-                Shape2.name = "Shape2"
-            }
-            
-            //Shape 3
-            if Shape3 == ciRed {
-                Shape3.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: ciRed.size.width, height: ciRed.size.height))
-                Shape3.name = "Shape3"
-            }
-            if Shape3 == ciGreen{
-                Shape3.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: ciGreen.size.width, height: ciGreen.size.height))
-                Shape3.name = "Shape3"
-            }
-            if Shape3 == ciBlue{
-                Shape3.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: ciBlue.size.width, height: ciBlue.size.height))
-                Shape3.name = "Shape3"
-            }
-            if Shape3 == triRed{
-                Shape3.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: triRed.size.width, height: triRed.size.height))
-                Shape3.name = "Shape3"
-            }
-            if Shape3 == triGreen{
-                Shape3.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: triGreen.size.width, height: triGreen.size.height))
-                Shape3.name = "Shape3"
-            }
-            if Shape3 == triBlue{
-                Shape3.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: triBlue.size.width, height: triBlue.size.height))
-                Shape3.name = "Shape3"
-            }
-            if Shape3 == sqRed{
-                Shape3.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: sqRed.size.width, height: sqRed.size.height))
-                Shape3.name = "Shape3"
-            }
-            if Shape3 == sqGreen{
-                Shape3.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: sqGreen.size.width, height: sqGreen.size.height))
-                Shape3.name = "Shape3"
-            }
-            if Shape3 == sqBlue{
-                Shape3.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: sqBlue.size.width, height: sqBlue.size.height))
-                Shape3.name = "Shape3"
-            }
-            if Shape3 == hexRed{
-                Shape3.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: hexRed.size.width, height: hexRed.size.height))
-                Shape3.name = "Shape3"
-            }
-            if Shape3 == hexGreen{
-                Shape3.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: hexGreen.size.width, height: hexGreen.size.height))
-                Shape3.name = "Shape3"
-            }
-            if Shape3 == hexBlue{
-                Shape3.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: hexBlue.size.width, height: hexBlue.size.height))
-                Shape3.name = "Shape3"
-            }
-            //Shape 4
-            if Shape4 == ciRed {
-                Shape4.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: ciRed.size.width, height: ciRed.size.height))
-                Shape4.name = "Shape4"
-            }
-            if Shape4 == ciGreen{
-                Shape4.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: ciGreen.size.width, height: ciGreen.size.height))
-                Shape4.name = "Shape4"
-            }
-            if Shape4 == ciBlue{
-                Shape4.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: ciBlue.size.width, height: ciBlue.size.height))
-                Shape4.name = "Shape4"
-            }
-            if Shape4 == triRed{
-                Shape4.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: triRed.size.width, height: triRed.size.height))
-                Shape4.name = "Shape4"
-            }
-            if Shape4 == triGreen{
-                Shape4.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: triGreen.size.width, height: triGreen.size.height))
-                Shape4.name = "Shape4"
-            }
-            if Shape4 == triBlue{
-                Shape4.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: triBlue.size.width, height: triBlue.size.height))
-                Shape4.name = "Shape4"
-            }
-            if Shape4 == sqRed{
-                Shape4.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: sqRed.size.width, height: sqRed.size.height))
-                Shape4.name = "Shape4"
-            }
-            if Shape4 == sqGreen{
-                Shape4.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: sqGreen.size.width, height: sqGreen.size.height))
-                Shape4.name = "Shape4"
-            }
-            if Shape4 == sqBlue{
-                Shape4.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: sqBlue.size.width, height: sqBlue.size.height))
-                Shape4.name = "Shape4"
-            }
-            if Shape4 == hexRed{
-                Shape4.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: hexRed.size.width, height: hexRed.size.height))
-                Shape4.name = "Shape4"
-            }
-            if Shape4 == hexGreen{
-                Shape4.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: hexGreen.size.width, height: hexGreen.size.height))
-                Shape4.name = "Shape4"
-            }
-            if Shape4 == hexBlue{
-                Shape4.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: hexBlue.size.width, height: hexBlue.size.height))
-                Shape4.name = "Shape4"
-            }
-            //Shape 5
-            if Shape5 == ciRed {
-                Shape5.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: ciRed.size.width, height: ciRed.size.height))
-                Shape5.name = "Shape5"
-            }
-            if Shape5 == ciGreen{
-                Shape5.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: ciGreen.size.width, height: ciGreen.size.height))
-                Shape5.name = "Shape5"
-            }
-            if Shape5 == ciBlue{
-                Shape5.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: ciBlue.size.width, height: ciBlue.size.height))
-                Shape5.name = "Shape5"
-            }
-            if Shape5 == triRed{
-                Shape5.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: triRed.size.width, height: triRed.size.height))
-                Shape5.name = "Shape5"
-            }
-            if Shape5 == triGreen{
-                Shape5.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: triGreen.size.width, height: triGreen.size.height))
-                Shape5.name = "Shape5"
-            }
-            if Shape5 == triBlue{
-                Shape5.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: triBlue.size.width, height: triBlue.size.height))
-                Shape5.name = "Shape5"
-            }
-            if Shape5 == sqRed{
-                Shape5.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: sqRed.size.width, height: sqRed.size.height))
-                Shape5.name = "Shape5"
-            }
-            if Shape5 == sqGreen{
-                Shape5.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: sqGreen.size.width, height: sqGreen.size.height))
-                Shape5.name = "Shape5"
-            }
-            if Shape5 == sqBlue{
-                Shape5.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: sqBlue.size.width, height: sqBlue.size.height))
-                Shape5.name = "Shape5"
-            }
-            if Shape5 == hexRed{
-                Shape5.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: hexRed.size.width, height: hexRed.size.height))
-                Shape5.name = "Shape5"
-            }
-            if Shape5 == hexGreen{
-                Shape5.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: hexGreen.size.width, height: hexGreen.size.height))
-                Shape5.name = "Shape5"
-            }
-            if Shape5 == hexBlue{
-                Shape5.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: hexBlue.size.width, height: hexBlue.size.height))
-                Shape5.name = "Shape5"
-            }
-            //Shape 6
-            if Shape6 == ciRed {
-                Shape6.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: ciRed.size.width, height: ciRed.size.height))
-                Shape6.name = "Shape6"
-            }
-            if Shape6 == ciGreen{
-                Shape6.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: ciGreen.size.width, height: ciGreen.size.height))
-                Shape6.name = "Shape6"
-            }
-            if Shape6 == ciBlue{
-                Shape6.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: ciBlue.size.width, height: ciBlue.size.height))
-                Shape6.name = "Shape6"
-            }
-            if Shape6 == triRed{
-                Shape6.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: triRed.size.width, height: triRed.size.height))
-                Shape6.name = "Shape6"
-            }
-            if Shape6 == triGreen{
-                Shape6.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: triGreen.size.width, height: triGreen.size.height))
-                Shape6.name = "Shape6"
-            }
-            if Shape6 == triBlue{
-                Shape6.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: triBlue.size.width, height: triBlue.size.height))
-                Shape6.name = "Shape6"
-            }
-            if Shape6 == sqRed{
-                Shape6.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: sqRed.size.width, height: sqRed.size.height))
-                Shape6.name = "Shape6"
-            }
-            if Shape6 == sqGreen{
-                Shape6.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: sqGreen.size.width, height: sqGreen.size.height))
-                Shape6.name = "Shape6"
-            }
-            if Shape6 == sqBlue{
-                Shape6.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: sqBlue.size.width, height: sqBlue.size.height))
-                Shape6.name = "Shape6"
-            }
-            if Shape6 == hexRed{
-                Shape6.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: hexRed.size.width, height: hexRed.size.height))
-                Shape6.name = "Shape6"
-            }
-            if Shape6 == hexGreen{
-                Shape6.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: hexGreen.size.width, height: hexGreen.size.height))
-                Shape6.name = "Shape6"
-            }
-            if Shape6 == hexBlue{
-                Shape6.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: hexBlue.size.width, height: hexBlue.size.height))
-                Shape6.name = "Shape6"
-            }
-            //Shape 7
-            if Shape7 == ciRed {
-                Shape7.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: ciRed.size.width, height: ciRed.size.height))
-                Shape7.name = "Shape7"
-            }
-            if Shape7 == ciGreen{
-                Shape7.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: ciGreen.size.width, height: ciGreen.size.height))
-                Shape7.name = "Shape7"
-            }
-            if Shape7 == ciBlue{
-                Shape7.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: ciBlue.size.width, height: ciBlue.size.height))
-                Shape7.name = "Shape7"
-            }
-            if Shape7 == triRed{
-                Shape7.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: triRed.size.width, height: triRed.size.height))
-                Shape7.name = "Shape7"
-            }
-            if Shape7 == triGreen{
-                Shape7.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: triGreen.size.width, height: triGreen.size.height))
-                Shape7.name = "Shape7"
-            }
-            if Shape7 == triBlue{
-                Shape7.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: triBlue.size.width, height: triBlue.size.height))
-                Shape7.name = "Shape7"
-            }
-            if Shape7 == sqRed{
-                Shape7.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: sqRed.size.width, height: sqRed.size.height))
-                Shape7.name = "Shape7"
-            }
-            if Shape7 == sqGreen{
-                Shape7.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: sqGreen.size.width, height: sqGreen.size.height))
-                Shape7.name = "Shape7"
-            }
-            if Shape7 == sqBlue{
-                Shape7.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: sqBlue.size.width, height: sqBlue.size.height))
-                Shape7.name = "Shape7"
-            }
-            if Shape7 == hexRed{
-                Shape7.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: hexRed.size.width, height: hexRed.size.height))
-                Shape7.name = "Shape7"
-            }
-            if Shape7 == hexGreen{
-                Shape7.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: hexGreen.size.width, height: hexGreen.size.height))
-                Shape7.name = "Shape7"
-            }
-            if Shape7 == hexBlue{
-                Shape7.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: hexBlue.size.width, height: hexBlue.size.height))
-                Shape7.name = "Shape7"
-            }
-            //Shape 8
-            if Shape8 == ciRed {
-                Shape8.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: ciRed.size.width, height: ciRed.size.height))
-                Shape8.name = "Shape8"
-            }
-            if Shape8 == ciGreen{
-                Shape8.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: ciGreen.size.width, height: ciGreen.size.height))
-                Shape8.name = "Shape8"
-            }
-            if Shape8 == ciBlue{
-                Shape8.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: ciBlue.size.width, height: ciBlue.size.height))
-                Shape8.name = "Shape8"
-            }
-            if Shape8 == triRed{
-                Shape8.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: triRed.size.width, height: triRed.size.height))
-                Shape8.name = "Shape8"
-            }
-            if Shape8 == triGreen{
-                Shape8.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: triGreen.size.width, height: triGreen.size.height))
-                Shape8.name = "Shape8"
-            }
-            if Shape8 == triBlue{
-                Shape8.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: triBlue.size.width, height: triBlue.size.height))
-                Shape8.name = "Shape8"
-            }
-            if Shape8 == sqRed{
-                Shape8.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: sqRed.size.width, height: sqRed.size.height))
-                Shape8.name = "Shape8"
-            }
-            if Shape8 == sqGreen{
-                Shape8.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: sqGreen.size.width, height: sqGreen.size.height))
-                Shape8.name = "Shape8"
-            }
-            if Shape8 == sqBlue{
-                Shape8.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: sqBlue.size.width, height: sqBlue.size.height))
-                Shape8.name = "Shape8"
-            }
-            if Shape8 == hexRed{
-                Shape8.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: hexRed.size.width, height: hexRed.size.height))
-                Shape8.name = "Shape8"
-            }
-            if Shape8 == hexGreen{
-                Shape8.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: hexGreen.size.width, height: hexGreen.size.height))
-                Shape8.name = "Shape8"
-            }
-            if Shape8 == hexBlue{
-                Shape8.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: hexBlue.size.width, height: hexBlue.size.height))
-                Shape8.name = "Shape8"
-            }
-            //Shape 9
-            if Shape9 == ciRed {
-                Shape9.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: ciRed.size.width, height: ciRed.size.height))
-                Shape9.name = "Shape9"
-            }
-            if Shape9 == ciGreen{
-                Shape9.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: ciGreen.size.width, height: ciGreen.size.height))
-                Shape9.name = "Shape9"
-            }
-            if Shape9 == ciBlue{
-                Shape9.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: ciBlue.size.width, height: ciBlue.size.height))
-                Shape9.name = "Shape9"
-            }
-            if Shape9 == triRed{
-                Shape9.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: triRed.size.width, height: triRed.size.height))
-                Shape9.name = "Shape9"
-            }
-            if Shape9 == triGreen{
-                Shape9.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: triGreen.size.width, height: triGreen.size.height))
-                Shape9.name = "Shape9"
-            }
-            if Shape9 == triBlue{
-                Shape9.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: triBlue.size.width, height: triBlue.size.height))
-                Shape9.name = "Shape9"
-            }
-            if Shape9 == sqRed{
-                Shape9.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: sqRed.size.width, height: sqRed.size.height))
-                Shape9.name = "Shape9"
-            }
-            if Shape9 == sqGreen{
-                Shape9.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: sqGreen.size.width, height: sqGreen.size.height))
-                Shape9.name = "Shape9"
-            }
-            if Shape9 == sqBlue{
-                Shape9.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: sqBlue.size.width, height: sqBlue.size.height))
-                Shape9.name = "Shape9"
-            }
-            if Shape9 == hexRed{
-                Shape9.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: hexRed.size.width, height: hexRed.size.height))
-                Shape9.name = "Shape9"
-            }
-            if Shape9 == hexGreen{
-                Shape9.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: hexGreen.size.width, height: hexGreen.size.height))
-                Shape9.name = "Shape9"
-            }
-            if Shape9 == hexBlue{
-                Shape9.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: hexBlue.size.width, height: hexBlue.size.height))
-                Shape9.name = "Shape9"
-            }
-            
-            let arrayOfPoints: [CGPoint] = [position1, position2, position3, position4, position5, position6, position7, position8, position9]
-                
-            var shuffledPoints = arrayOfPoints.shuffled()
-            
-            Shape1.position = shuffledPoints.last!
-            shuffledPoints.removeLast()
-            Shape2.position = shuffledPoints.last!
-            shuffledPoints.removeLast()
-            Shape3.position = shuffledPoints.last!
-            shuffledPoints.removeLast()
-            Shape4.position = shuffledPoints.last!
-            shuffledPoints.removeLast()
-            Shape5.position = shuffledPoints.last!
-            shuffledPoints.removeLast()
-            Shape6.position = shuffledPoints.last!
-            shuffledPoints.removeLast()
-            Shape7.position = shuffledPoints.last!
-            shuffledPoints.removeLast()
-            Shape8.position = shuffledPoints.last!
-            shuffledPoints.removeLast()
-            Shape9.position = shuffledPoints.last!
-            
-            Shape1.zPosition = 20
-            Shape2.zPosition = 20
-            Shape3.zPosition = 20
-            Shape4.zPosition = 20
-            Shape5.zPosition = 20
-            Shape6.zPosition = 20
-            Shape7.zPosition = 20
-            Shape8.zPosition = 20
-            Shape9.zPosition = 20
-            
-            //Physics for the fake shapes
-            //Shape 1
-            Shape1.physicsBody?.categoryBitMask = CollisionType.Shape1.rawValue
-            Shape1.physicsBody?.contactTestBitMask = CollisionType.playerShape.rawValue
-            Shape1.physicsBody?.collisionBitMask = CollisionType.playerShape.rawValue
-            Shape1.physicsBody?.isDynamic = false
-            //Shape 2
-            Shape2.physicsBody?.categoryBitMask = CollisionType.everythingElse.rawValue
-            Shape2.physicsBody?.contactTestBitMask = CollisionType.playerShape.rawValue
-            Shape2.physicsBody?.collisionBitMask = CollisionType.playerShape.rawValue
-            Shape2.physicsBody?.isDynamic = false
-            //Shape 3
-            Shape3.physicsBody?.categoryBitMask = CollisionType.everythingElse.rawValue
-            Shape3.physicsBody?.contactTestBitMask = CollisionType.playerShape.rawValue
-            Shape3.physicsBody?.collisionBitMask = CollisionType.playerShape.rawValue
-            Shape3.physicsBody?.isDynamic = false
-            //Shape 4
-            Shape4.physicsBody?.categoryBitMask = CollisionType.everythingElse.rawValue
-            Shape4.physicsBody?.contactTestBitMask = CollisionType.playerShape.rawValue
-            Shape4.physicsBody?.collisionBitMask = CollisionType.playerShape.rawValue
-            Shape4.physicsBody?.isDynamic = false
-            //Shape 5
-            Shape5.physicsBody?.categoryBitMask = CollisionType.everythingElse.rawValue
-            Shape5.physicsBody?.contactTestBitMask = CollisionType.playerShape.rawValue
-            Shape5.physicsBody?.collisionBitMask = CollisionType.playerShape.rawValue
-            Shape5.physicsBody?.isDynamic = false
-            //Shape 6
-            Shape6.physicsBody?.categoryBitMask = CollisionType.everythingElse.rawValue
-            Shape6.physicsBody?.contactTestBitMask = CollisionType.playerShape.rawValue
-            Shape6.physicsBody?.collisionBitMask = CollisionType.playerShape.rawValue
-            Shape6.physicsBody?.isDynamic = false
-            //Shape 7
-            Shape7.physicsBody?.categoryBitMask = CollisionType.everythingElse.rawValue
-            Shape7.physicsBody?.contactTestBitMask = CollisionType.playerShape.rawValue
-            Shape7.physicsBody?.collisionBitMask = CollisionType.playerShape.rawValue
-            Shape7.physicsBody?.isDynamic = false
-            //Shape 8
-            Shape8.physicsBody?.categoryBitMask = CollisionType.everythingElse.rawValue
-            Shape8.physicsBody?.contactTestBitMask = CollisionType.playerShape.rawValue
-            Shape8.physicsBody?.collisionBitMask = CollisionType.playerShape.rawValue
-            Shape8.physicsBody?.isDynamic = false
-            
-            Shape9.physicsBody?.categoryBitMask = CollisionType.everythingElse.rawValue
-            Shape9.physicsBody?.contactTestBitMask = CollisionType.playerShape.rawValue
-            Shape9.physicsBody?.collisionBitMask = CollisionType.playerShape.rawValue
-            Shape9.physicsBody?.isDynamic = false
-            addChild(Shape1)
-            addChild(Shape2)
-            addChild(Shape3)
-            addChild(Shape4)
-            addChild(Shape5)
-            addChild(Shape6)
-            addChild(Shape7)
-            addChild(Shape8)
-            addChild(Shape9)
-        } else if userLevel >= 5 {
         
         var fakeArrayShapes2:[SKSpriteNode] = [triRed,triGreen,triBlue,triYellow,triOrange,triPurple,ciRed,ciGreen,ciBlue,ciYellow,ciOrange,ciPurple,sqRed,sqGreen,sqBlue,sqYellow,sqOrange,sqPurple,hexRed,hexGreen,hexBlue,hexYellow,hexOrange,hexPurple]
         
@@ -2427,7 +1823,5 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             addChild(Shape8)
             addChild(Shape9)
         }
-    }
-        
 }
 

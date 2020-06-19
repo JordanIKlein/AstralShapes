@@ -7,19 +7,18 @@
 //
 import SpriteKit
 import GameplayKit
+import AVFoundation
+
 var highScoreButton = UIButton(type: .system)
 var aboutButton = UIButton(type: .custom)
 var XPButton = UIButton(type: .custom)
 var settingsScene = UIButton(type: .system)
-
-var mute = UserDefaults.standard.bool(forKey: "mute") ?? false
+var musicTrack = UserDefaults.standard.string(forKey: "musicTrack") ?? "lofimusic1"
 
 class MenuScene: SKScene {
     var playButton = SKSpriteNode()
     let shooting = SKEmitterNode(fileNamed: "Fire")!
     var shootingStarTimer = Timer()
-    var profileButton = SKSpriteNode()
-    var profileLabel = SKLabelNode(fontNamed: "Press Start 2P")
     
     override func didMove(to view: SKView) {
         removeExtras()
@@ -29,45 +28,14 @@ class MenuScene: SKScene {
                    }
         }
         randomVariable = 0
-        continueVariable = 1
+        continueBasic = 1
+        continueRGB = 1
         downbackground()
         addButtons()
         runButton()
-        musicCheck()
         shootingStarTimer = Timer.scheduledTimer(withTimeInterval: 4, repeats: true, block: {_ in self.shootingStar()})
         }
-    func musicCheck(){
-            if UserDefaults.standard.url(forKey: "musicTrack") == url2 {
-                if UserDefaults.standard.bool(forKey: "mute") == true {
-                    player2?.play()
-                    player2?.numberOfLoops = -1
-                } else if UserDefaults.standard.bool(forKey: "mute") == false {
-                    player2?.pause()
-                    player2?.pause()
-                }
-            } else if UserDefaults.standard.url(forKey: "musicTrack") == url3 {
-                if UserDefaults.standard.bool(forKey: "mute") == true {
-                    player3?.play()
-                    player3?.numberOfLoops = -1
-                } else if UserDefaults.standard.bool(forKey: "mute") == false {
-                    player3?.pause()
-                }
-            } else if UserDefaults.standard.url(forKey: "musicTrack") == url1{
-                if UserDefaults.standard.bool(forKey: "mute") == true {
-                    player?.play()
-                    player?.numberOfLoops = -1
-                } else if UserDefaults.standard.bool(forKey: "mute") == false {
-                    player?.pause()
-                }
-            } else {
-                if UserDefaults.standard.bool(forKey: "mute") == true {
-                    player?.play()
-                    player?.numberOfLoops = -1
-                } else {
-                    player?.pause()
-                }
-            }
-    }
+    
     func shootingStar(){
         shooting.removeFromParent()
         addChild(shooting)
@@ -103,28 +71,6 @@ class MenuScene: SKScene {
         playButton.zPosition = 25
         playButton.run(SKAction.repeatForever(grp))
         addChild(playButton)
-//        profileButton.position = CGPoint(x: screenWidth/2, y: screenHeight * 0.75)
-//        profileButton.size = CGSize(width: 250, height: 60)
-//        profileButton.name = "profileButton"
-//        var profileButtonAnimation: SKAction
-//        var profileButtonTextures:[SKTexture] = []
-//        for i in 1...6 {
-//               profileButtonTextures.append(SKTexture(imageNamed: "background\(i)"))
-//         }
-//        let profileButtonPlay = profileButtonTextures.shuffled()
-//        profileButtonAnimation = SKAction.animate(with: profileButtonPlay, timePerFrame: 4.0)
-//        let sepRepeat = SKAction.repeat(profileButtonAnimation, count: 6)
-//        let gop = SKAction.group([sepRepeat,profileButtonAnimation])
-//        profileButton.zPosition = 25
-//        profileButton.run(SKAction.repeatForever(gop))
-//        addChild(profileButton)
-//        // adding the "Classic" text here
-//        profileLabel.fontSize = 25
-//        profileLabel.position = CGPoint(x: screenWidth/2, y: screenHeight * 0.735)
-//        profileLabel.zPosition = 30
-//        profileLabel.name = "profileLabel"
-//        profileLabel.text = "Profile"
-//        addChild(profileLabel)
     }
     func addButtons(){
         highScoreButton.frame = CGRect (x: screenWidth/2 - 125, y: screenHeight * 0.5 , width: 250, height: 50)
@@ -178,13 +124,7 @@ class MenuScene: SKScene {
         scene?.view?.presentScene(nextScene,transition: transition)
         shootingStarTimer.invalidate()
     }
-    @objc func profileSceneSender(sender: UIButton!) { // sending the User back to the Game
-        let nextScene = ProfileScene(size: scene!.size)
-        let transition = SKTransition.fade(withDuration: 0.0)
-        nextScene.scaleMode = .aspectFill
-        scene?.view?.presentScene(nextScene,transition: transition)
-        shootingStarTimer.invalidate()
-    }
+
     func downbackground() {
         let backgroundMainMenutexture = SKSpriteNode(imageNamed: userSetBackground)
         backgroundMainMenutexture.zPosition = -20
@@ -220,14 +160,6 @@ class MenuScene: SKScene {
                 nextScene.scaleMode = .aspectFill
                 scene?.view?.presentScene(nextScene,transition: transition)
             }
-//            else if nodesArray.first?.name == "profileButton" || nodesArray.first?.name == "profileLabel" {
-//                xptxt.removeFromParent()
-//                profileButton.removeFromParent()
-//                let nextScene = ProfileScene(size: scene!.size)
-//                let transition = SKTransition.fade(withDuration: 0.0)
-//                nextScene.scaleMode = .aspectFill
-//                scene?.view?.presentScene(nextScene,transition: transition)
-//            }
         }
     }
 }

@@ -31,13 +31,13 @@ class SettingScene: SKScene {
         }
         removeExtras()
         settingtheText()//Adding SK Labelnode
-        music() // volume button
+        //music() // volume button
         downbackground()//Adding space background
         mainMenuFunc() // main menu button
         backgroundScene()// adding a background button
         musicChoice() // different music tracks
         shootingStarTimer = Timer.scheduledTimer(withTimeInterval: 4, repeats: true, block: {_ in self.shootingStar()})
-        muteTimer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true, block: {_ in self.musicTitle()})
+        //muteTimer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true, block: {_ in self.musicTitle()})
     }
     func settingtheText(){
         settingtxt.position = CGPoint(x: screenWidth/2 - settingtxt.frame.width/2, y: screenHeight * 0.8)
@@ -45,73 +45,55 @@ class SettingScene: SKScene {
         settingtxt.fontSize = 30
         settingtxt.zPosition = -10
         settingtxt.lineBreakMode = NSLineBreakMode.byWordWrapping
-        settingtxt.name = "highscoretxt"
+        settingtxt.name = "settingstxt"
         settingtxt.text = "Settings:"
         addChild(settingtxt)
-        if removeAds == 0 {
-            self.view!.addSubview(inAppPurchaseB)
-        }
     }
-    func musicTitle() {
-        if UserDefaults.standard.bool(forKey: "mute") == false {
-            volumeButton.setTitle("Unmute", for: UIControl.State.normal)
-        } else if UserDefaults.standard.bool(forKey: "mute") == true {
-            volumeButton.setTitle("Mute", for: UIControl.State.normal)
-        }
-    }
-    func music(){
-        volumeButton.frame = CGRect (x:screenWidth/2 - 150, y:screenHeight * 0.3 , width: 300, height: 50)
-        volumeButton.layer.cornerRadius = 0
-        volumeButton.layer.borderWidth = 1
-        volumeButton.layer.borderColor=UIColor.white.cgColor
-        volumeButton.addTarget(self, action: #selector(musicSender), for: UIControl.Event.touchUpInside)
-        volumeButton.titleLabel!.font = UIFont(name: "Press Start 2P", size: 27)
-        volumeButton.titleLabel!.textAlignment = NSTextAlignment.center
-        volumeButton.setTitleColor(UIColor.white, for: .normal)
-        if UserDefaults.standard.bool(forKey: "mute") == false {
-            volumeButton.setTitle("Unmute", for: UIControl.State.normal)
-        } else if UserDefaults.standard.bool(forKey: "mute") == true {
-            volumeButton.setTitle("Mute", for: UIControl.State.normal)
-        }
-        self.view!.addSubview(volumeButton)
-    }
-    @objc func musicSender(sender: UIButton!) { // sending the User back to the Game
-        if UserDefaults.standard.bool(forKey: "mute") == true {
-            volumeButton.setTitle("Unmute", for: UIControl.State.normal)
-            player?.pause()
-            player2?.pause()
-            player3?.pause()
-            UserDefaults.standard.set(false,forKey: "mute")
-        } else if UserDefaults.standard.bool(forKey: "mute") == false {
-            volumeButton.setTitle("Mute", for: UIControl.State.normal)
-            if musicTrack == url2 {
-                player2?.play()
-                player2?.numberOfLoops = -1
-                player?.pause()
-                player3?.pause()
-            } else if musicTrack == url3 {
-                player3?.play()
-                player3?.numberOfLoops = -1
-                player?.pause()
-                player2?.pause()
-            } else if musicTrack == url1 || musicTrack != url1 {
-                player?.play()
-                player?.numberOfLoops = -1
-                player2?.pause()
-                player3?.pause()
-            }
-            UserDefaults.standard.set(true,forKey: "mute")
-        }
-    }
+//    func musicTitle() {
+//        if UserDefaults.standard.bool(forKey: "mute") == false {
+//            volumeButton.setTitle("Unmute", for: UIControl.State.normal)
+//        } else if UserDefaults.standard.bool(forKey: "mute") == true {
+//            volumeButton.setTitle("Mute", for: UIControl.State.normal)
+//        }
+//    }
+//    func music(){
+//        volumeButton.frame = CGRect (x:screenWidth/2 - 150, y:screenHeight * 0.3 , width: 300, height: 50)
+//        volumeButton.layer.cornerRadius = 0
+//        volumeButton.layer.borderWidth = 1
+//        volumeButton.layer.borderColor=UIColor.white.cgColor
+//        volumeButton.addTarget(self, action: #selector(musicSender), for: UIControl.Event.touchUpInside)
+//        volumeButton.titleLabel!.font = UIFont(name: "Press Start 2P", size: 27)
+//        volumeButton.titleLabel!.textAlignment = NSTextAlignment.center
+//        volumeButton.setTitleColor(UIColor.white, for: .normal)
+//        if UserDefaults.standard.bool(forKey: "mute") == false {
+//            volumeButton.setTitle("Unmute", for: UIControl.State.normal)
+//        } else if UserDefaults.standard.bool(forKey: "mute") == true {
+//            volumeButton.setTitle("Mute", for: UIControl.State.normal)
+//        }
+//        self.view!.addSubview(volumeButton)
+//    }
+//    @objc func musicSender(sender: UIButton!) { // sending the User back to the Game
+//        if UserDefaults.standard.bool(forKey: "mute") == true {
+//            volumeButton.setTitle("Unmute", for: UIControl.State.normal)
+//            player?.pause()
+////            player2?.pause()
+////            player3?.pause()
+//            UserDefaults.standard.set(false,forKey: "mute")
+//        } else if UserDefaults.standard.bool(forKey: "mute") == false {
+//            volumeButton.setTitle("Mute", for: UIControl.State.normal)
+//            player?.play()
+//            UserDefaults.standard.set(true,forKey: "mute")
+//        }
+//    }
     func musicChoice() {
-        musicButton.frame = CGRect (x: screenWidth/2 - 150, y: screenHeight * 0.6 , width: 300, height: 50)
-        musicButton.setTitle("Music Track", for: UIControl.State.normal)
+        musicButton.frame = CGRect (x: screenWidth/2 - 150, y: screenHeight * 0.5 , width: 300, height: 50)
+        musicButton.setTitle("Music Tracks", for: UIControl.State.normal)
         musicButton.setTitleColor(UIColor.white, for: .normal)
         musicButton.layer.cornerRadius = 0
         musicButton.layer.borderWidth = 1
         musicButton.layer.borderColor=UIColor.white.cgColor
         musicButton.addTarget(self, action: #selector(musicTypes), for: UIControl.Event.touchUpInside)
-        musicButton.titleLabel!.font = UIFont(name: "Press Start 2P", size: 25)
+        musicButton.titleLabel!.font = UIFont(name: "Press Start 2P", size: 23)
         musicButton.titleLabel!.textAlignment = NSTextAlignment.center
         self.view!.addSubview(musicButton)
     }
@@ -123,7 +105,7 @@ class SettingScene: SKScene {
         shootingStarTimer.invalidate()
     }
     
-    func languages(){
+//    func languages(){
 //        languageButton.frame = CGRect (x:screenWidth/2 - 150, y:screenHeight * 0.4 , width: 300, height: 50)
 //        languageButton.setTitle("Language", for: UIControl.State.normal)
 //        languageButton.setTitleColor(UIColor.white, for: .normal)
@@ -134,14 +116,14 @@ class SettingScene: SKScene {
 //        languageButton.titleLabel!.font = UIFont(name: "Press Start 2P", size: 27)
 //        languageButton.titleLabel!.textAlignment = NSTextAlignment.center
 //        self.view!.addSubview(languageButton)
-    }
-    @objc func languageSender(sender: UIButton!) { // sending the User back to the Game
+//    }
+//        @objc func languageSender(sender: UIButton!) { // sending the User back to the Game
 //        let nextScene = LanguageScene(size: scene!.size)
 //        let transition = SKTransition.fade(withDuration: 0.5)
 //        nextScene.scaleMode = .aspectFill
 //        scene?.view?.presentScene(nextScene,transition: transition)
 //        shootingStarTimer.invalidate()
-    }
+//    }
     func downbackground() {
         let blackbackground = SKSpriteNode(imageNamed: "blackbackground")
         blackbackground.zPosition = -50
@@ -195,7 +177,7 @@ class SettingScene: SKScene {
         shootingStarTimer.invalidate()
     }
     func backgroundScene(){
-        backgroundButton.frame = CGRect (x:screenWidth/2 - 150, y:screenHeight * 0.45 , width: 300, height: 50)
+        backgroundButton.frame = CGRect (x:screenWidth/2 - 150, y:screenHeight * 0.35 , width: 300, height: 50)
         backgroundButton.setTitle("Backgrounds", for: UIControl.State.normal)
         backgroundButton.setTitleColor(UIColor.white, for: .normal)
         backgroundButton.layer.cornerRadius = 0

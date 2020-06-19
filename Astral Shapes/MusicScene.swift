@@ -9,11 +9,19 @@
 import Foundation
 import SpriteKit
 import GameplayKit
+import AVFoundation
+
+var lofimusic1: AVAudioPlayer?
+var lofimusic2: AVAudioPlayer?
+var lofimusic3: AVAudioPlayer?
 
 class MusicScene: SKScene {
 var defaultMusic = UIButton(type: .system)
 var lofiMix1 = UIButton(type: .system)
 var lofiMix2 = UIButton(type: .system)
+
+
+    
 var constantTimer = Timer()
 override func didMove(to view: SKView) {
     //Main Functions of the game
@@ -24,20 +32,18 @@ override func didMove(to view: SKView) {
     }
     addingButtons()
     downbackground()
-    constantTimer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true, block: {_ in self.constantCheck()})
+    constantTimer = Timer.scheduledTimer(withTimeInterval: 0.01, repeats: true, block: {_ in self.constantCheck()})
 }
     func constantCheck(){
-        if musicTrack! == url1 {
+        if musicTrack == "lofimusic1" {
             defaultMusic.backgroundColor = UIColor.systemTeal
             lofiMix1.backgroundColor = nil
             lofiMix2.backgroundColor = nil
-        }
-        if musicTrack! == url2 {
+        } else if musicTrack == "lofimusic2" {
             defaultMusic.backgroundColor = nil
             lofiMix1.backgroundColor = UIColor.systemTeal
             lofiMix2.backgroundColor = nil
-        }
-        if musicTrack! == url3 {
+        } else if musicTrack == "lofimusic3" {
             defaultMusic.backgroundColor = nil
             lofiMix1.backgroundColor = nil
             lofiMix2.backgroundColor = UIColor.systemTeal
@@ -98,38 +104,64 @@ override func didMove(to view: SKView) {
         shootingStarTimer.invalidate()
     }
     @objc func defaultMusicSender(sender: UIButton!) { // Pausing first song (if there is one) then playing another one
-        musicTrack = url1
-        UserDefaults.standard.set(url1, forKey: "musicTrack")
-        player?.play()
-        player?.numberOfLoops = -1
-        player2?.pause()
-        player3?.pause()
-        volumeButton.setTitleColor(UIColor.white, for: .normal)
-        mute = true
-        UserDefaults.standard.set(true,forKey: "mute")
+        lofimusic1?.pause()
+        lofimusic2?.pause()
+        lofimusic3?.pause()
+        let path = Bundle.main.path(forResource: "space.mp3", ofType:nil)!
+        let url = URL(fileURLWithPath: path)
+
+        do {
+            lofimusic1 = try AVAudioPlayer(contentsOf: url)
+            lofimusic1?.play()
+            lofimusic1?.numberOfLoops = -1
+        } catch {
+            // couldn't load file
+        }
+        defaultMusic.backgroundColor = UIColor.systemTeal
+        lofiMix1.backgroundColor = nil
+        lofiMix2.backgroundColor = nil
+        musicTrack = "lofimusic1"
+        UserDefaults.standard.set("lofimusic1",forKey: "musicTrack")
     }
     @objc func lofiMix1Sender(sender: UIButton!) { // Pausing first song (if there is one) then playing another one
-        musicTrack = url2
-        UserDefaults.standard.set(url2, forKey: "musicTrack")
-        player2?.play()
-        player2?.numberOfLoops = -1
-        player?.pause()
-        player3?.pause()
-        volumeButton.setTitleColor(UIColor.white, for: .normal)
-        mute = true
-        UserDefaults.standard.set(true,forKey: "mute")
+        lofimusic1?.pause()
+        lofimusic2?.pause()
+        lofimusic3?.pause()
+        let path = Bundle.main.path(forResource: "Sorry.mp3", ofType:nil)!
+        let url = URL(fileURLWithPath: path)
+
+        do {
+            lofimusic2 = try AVAudioPlayer(contentsOf: url)
+            lofimusic2?.play()
+            lofimusic2?.numberOfLoops = -1
+        } catch {
+            // couldn't load file
+        }
+        defaultMusic.backgroundColor = nil
+        lofiMix1.backgroundColor = UIColor.systemTeal
+        lofiMix2.backgroundColor = nil
+        musicTrack = "lofimusic2"
+        UserDefaults.standard.set("lofimusic2",forKey: "musicTrack")
     }
     @objc func lofiMix2Sender(sender: UIButton!) { // Pausing first song (if there is one) then playing another one
-        player?.pause()
-        musicTrack = url3
-        UserDefaults.standard.set(url3, forKey: "musicTrack")
-        player3?.play()
-        player3?.numberOfLoops = -1
-        player?.pause()
-        player2?.pause()
-        volumeButton.setTitleColor(UIColor.white, for: .normal)
-        mute = true
-        UserDefaults.standard.set(true,forKey: "mute")
+        lofimusic1?.pause()
+        lofimusic2?.pause()
+        lofimusic3?.pause()
+        let path = Bundle.main.path(forResource: "home.mp3", ofType:nil)!
+        let url = URL(fileURLWithPath: path)
+
+        do {
+            lofimusic3 = try AVAudioPlayer(contentsOf: url)
+            lofimusic3?.play()
+            lofimusic3?.numberOfLoops = -1
+        } catch {
+            // couldn't load file :(
+        }
+        defaultMusic.backgroundColor = nil
+        lofiMix1.backgroundColor = nil
+        lofiMix2.backgroundColor = UIColor.systemTeal
+        musicTrack = "lofimusic3"
+        UserDefaults.standard.set("lofimusic3",forKey: "musicTrack")
     }
     func downbackground() {
         let blackbackground = SKSpriteNode(imageNamed: "blackbackground")

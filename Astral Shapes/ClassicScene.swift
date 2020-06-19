@@ -11,7 +11,7 @@ import GameplayKit
 import UIKit
 
 var classicScoreArray = UserDefaults.standard.array(forKey: "classic") as? [Int] ?? [0, 0, 0]
-
+var continueRGB:Int = 1
 class ClassicScene: SKScene, SKPhysicsContactDelegate {
     override func didMove(to view: SKView) {
         //Main Functions of the game
@@ -20,19 +20,10 @@ class ClassicScene: SKScene, SKPhysicsContactDelegate {
                        view.removeFromSuperview()
                    }
         }
-        removeExtras()
-        if continueVariable != 1 {
-            continueFunc()
-            seconds = 20.0
-            physics()
-            constantUpdate()
-            newSetup()
-            downbackground()
-            addingScoreTimeLabels()
-            runButton()
-        } else {
+        removeAllActions()
+        removeAllChildren()
         score = 0
-        continueVariable = 1
+        continueRGB = 1
         physics() //Physics
         downbackground() // Moving Background
         addingScoreTimeLabels() // adding score and time labels
@@ -40,6 +31,15 @@ class ClassicScene: SKScene, SKPhysicsContactDelegate {
         runButton() // button behind the main shape we are looking for
         shootingStarTimer = Timer.scheduledTimer(withTimeInterval: 4, repeats: true, block: {_ in self.shootingStar()})
         }
+    func continueTrue(){
+        removeAllActions()
+        removeAllChildren()
+        continueFunc()
+        seconds = 20.0
+        physics()
+        constantUpdate()
+        newSetup()
+        downbackground()
     }
     func runButton() {
         playButton.position = CGPoint(x: round(screenWidth/2), y: round(screenHeight * 0.2))
@@ -61,9 +61,7 @@ class ClassicScene: SKScene, SKPhysicsContactDelegate {
     }
     func continueGame(){
         // Adding the continue button for a continuation of the game.
-        if continueVariable == 1 {
-            self.view!.addSubview(continueGameB)
-        }
+       
         // Main Menu Button
         mainMenuS.frame = CGRect (x:frame.midX - 125, y:frame.maxY * 0.2 , width: 250, height: 40)
         mainMenuS.setTitle("Main Menu", for: UIControl.State.normal)
@@ -103,27 +101,31 @@ class ClassicScene: SKScene, SKPhysicsContactDelegate {
         replayButton.titleLabel!.textAlignment = NSTextAlignment.center
         self.view!.addSubview(replayButton)
         // adding to high scores
+     
+        
         guard score > classicScoreArray.last ?? 0 else { return }
         classicScoreArray.append(score)  // add new core to array
         classicScoreArray.sort(by:>)     // sort by value
-
         UserDefaults.standard.set(Array(classicScoreArray.prefix(3)), forKey: "classic")
+        
     }
     func continueFunc(){
             scoreNumber.removeFromParent()
             scoreLabel.removeFromParent()
-                for view in view!.subviews {
-                    if view is UIButton{
-                        view.removeFromSuperview()
-                    }
+            for view in view!.subviews {
+                if view is UIButton{
+                    view.removeFromSuperview()
                 }
+            }
         }
     @objc func mainMenuScene(sender: UIButton!) { // sending the User back to the Game
-        removeExtras()
+        removeAllActions()
+        removeAllChildren()
         playButton.removeFromParent()
         scoreAmount.removeFromParent()
         totalTime.removeFromParent()
-        removeExtras()
+        removeAllActions()
+        removeAllChildren()
         shootingStarTimer.invalidate()
         let nextScene = MenuScene(size: scene!.size)
         let transition = SKTransition.fade(withDuration: 0.5)
@@ -131,7 +133,8 @@ class ClassicScene: SKScene, SKPhysicsContactDelegate {
         scene?.view?.presentScene(nextScene,transition: transition)
     }
     @objc func gameScene2(sender: UIButton!) { // sending the User back to the Game
-        removeExtras()
+        removeAllActions()
+        removeAllChildren()
         playButton.removeFromParent()
         scoreAmount.removeFromParent()
         totalTime.removeFromParent()
@@ -139,9 +142,10 @@ class ClassicScene: SKScene, SKPhysicsContactDelegate {
         classicSKLabelNode.removeFromParent()
         oneminuteButton.removeFromParent()
         oneminuteSKLabelNode.removeFromParent()
-        removeExtras()
+        removeAllActions()
+        removeAllChildren()
         shootingStarTimer.invalidate()
-        let nextScene = SpeedScene(size: scene!.size)
+        let nextScene = ClassicScene(size: scene!.size)
         let transition = SKTransition.fade(withDuration: 0.5)
         nextScene.scaleMode = .aspectFill
         scene?.view?.presentScene(nextScene,transition: transition)
@@ -202,7 +206,8 @@ class ClassicScene: SKScene, SKPhysicsContactDelegate {
         randomShapes()
     }
     func newSetup(){ // Removes any extra nodes, avoiding SKParent Node issues
-        removeExtras()
+        removeAllActions()
+        removeAllChildren()
         addingPlayerShape()
         runButton()
         addingScoreTimeLabels()
@@ -227,7 +232,8 @@ class ClassicScene: SKScene, SKPhysicsContactDelegate {
     }
     func gameOver(){
         // returnback score
-        removeExtras()
+        removeAllActions()
+        removeAllChildren()
         playButton.removeFromParent()
         scoreAmount.removeFromParent()
         totalTime.removeFromParent()

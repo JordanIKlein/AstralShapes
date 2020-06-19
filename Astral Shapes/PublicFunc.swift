@@ -15,9 +15,6 @@ var userLevel = UserDefaults.standard.integer(forKey: "userLevel") ?? 0
 func removeExtras(){
         backgroundMainMenutexture.removeFromParent()
         xpText.removeFromParent()
-        leveltxt.removeFromParent()
-        nextUnlocks.removeFromParent()
-        nxtlvltxt.removeFromParent()
         introtxt.removeFromParent()
         classicB.removeFromParent()
         classicSKLabelNode.removeFromParent()

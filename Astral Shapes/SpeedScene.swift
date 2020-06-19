@@ -12,7 +12,6 @@ import GameplayKit
 import UIKit
 
 var speedrunArray = UserDefaults.standard.array(forKey: "speedrun") as? [Int] ?? [0, 0, 0]
-
 class SpeedScene: SKScene, SKPhysicsContactDelegate {
     override func didMove(to view: SKView) {
         //Main Functions of the game
@@ -50,11 +49,6 @@ class SpeedScene: SKScene, SKPhysicsContactDelegate {
         addChild(playButton)
     }
     func continueGame(){
-        // Adding the continue button for a continuation of the game.
-        if continueVariable == 1 {
-            self.view!.addSubview(continueGameB)
-        }
-        
         // Main Menu Button
         mainMenuS.frame = CGRect (x:frame.midX - 125, y:frame.maxY * 0.2 , width: 250, height: 40)
         mainMenuS.setTitle("Main Menu", for: UIControl.State.normal)
@@ -152,7 +146,7 @@ class SpeedScene: SKScene, SKPhysicsContactDelegate {
     }
     @objc func gameScene2(sender: UIButton!) { // sending the User back to the Game
         shootingStarTimer.invalidate()
-        let nextScene = GameScene(size: scene!.size)
+        let nextScene = SpeedScene(size: scene!.size)
         let transition = SKTransition.fade(withDuration: 0.5)
         nextScene.scaleMode = .aspectFill
         scene?.view?.presentScene(nextScene,transition: transition)

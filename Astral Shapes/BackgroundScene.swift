@@ -11,7 +11,6 @@ import SpriteKit
 import GameplayKit
 
 //UI buttons that set the background
-//let mainBackground = (SKSpriteNode(imageNamed: "backgroundMainMenu"), "mainBackground")
 var userSetBackground = UserDefaults.standard.string (forKey: "background") ?? "backgroundMainMenuLong"
 var backgroundTimer = Timer()
 var mainBackgroundButton = UIButton(type: .system)

@@ -167,7 +167,7 @@ override func didMove(to view: SKView) {
             adventureB.removeFromParent()
             adventureLabel.removeFromParent()
             let nextScene = ClassicScene(size: scene!.size)
-            let transition = SKTransition.fade(withDuration: 0.5)
+            let transition = SKTransition.fade(withDuration: 0.25)
             nextScene.scaleMode = .aspectFill
             scene?.view?.presentScene(nextScene,transition: transition)
             shootingStarTimer.invalidate()
@@ -180,7 +180,7 @@ override func didMove(to view: SKView) {
             adventureB.removeFromParent()
             adventureLabel.removeFromParent()
             let nextScene = SpeedScene(size: scene!.size)
-            let transition = SKTransition.fade(withDuration: 0.5)
+            let transition = SKTransition.fade(withDuration: 0.25)
             nextScene.scaleMode = .aspectFill
             scene?.view?.presentScene(nextScene,transition: transition)
             shootingStarTimer.invalidate()
@@ -193,7 +193,7 @@ override func didMove(to view: SKView) {
             adventureB.removeFromParent()
             adventureLabel.removeFromParent()
             let nextScene = GameScene(size: scene!.size)
-            let transition = SKTransition.fade(withDuration: 0.5)
+            let transition = SKTransition.fade(withDuration: 0.25)
             nextScene.scaleMode = .aspectFill
             scene?.view?.presentScene(nextScene,transition: transition)
             shootingStarTimer.invalidate()
