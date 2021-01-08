@@ -40,7 +40,7 @@ class SettingScene: SKScene {
         //muteTimer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true, block: {_ in self.musicTitle()})
     }
     func settingtheText(){
-        settingtxt.position = CGPoint(x: screenWidth/2 - settingtxt.frame.width/2, y: screenHeight * 0.8)
+        settingtxt.position = CGPoint(x: screenWidth/2 - settingtxt.frame.width/2, y: screenHeight * 0.75)
         settingtxt.fontColor = UIColor.white
         settingtxt.fontSize = 30
         settingtxt.zPosition = -10
@@ -158,7 +158,7 @@ class SettingScene: SKScene {
         shooting.run(SKAction.sequence([SKAction.self.fadeIn(withDuration: 0.5),SKAction.wait(forDuration: 1.0),SKAction.self.fadeOut(withDuration: 1),SKAction.self.removeFromParent()]))
     }
     func mainMenuFunc() {
-        mainMenuS.frame = CGRect (x:screenWidth/2 - 150, y:screenHeight * 0.05 , width: 300, height: 50)
+        mainMenuS.frame = CGRect (x:screenWidth/2 - 150, y:screenHeight * 0.1 , width: 300, height: 50)
         mainMenuS.setTitle("Main Menu", for: UIControl.State.normal)
         mainMenuS.setTitleColor(UIColor.white, for: .normal)
         mainMenuS.layer.cornerRadius = 0

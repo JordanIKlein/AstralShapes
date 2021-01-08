@@ -28,7 +28,6 @@ class AboutScene: SKScene {
         aboutText()//Adding SK Labelnode
         downbackground()//Adding space background
         mainMenuFunc() // main menu button
-        howToPlay()
         shootingStarTimer = Timer.scheduledTimer(withTimeInterval: 4, repeats: true, block: {_ in self.shootingStar()})
     }
     func aboutText(){
@@ -94,7 +93,7 @@ class AboutScene: SKScene {
         shooting.run(SKAction.sequence([SKAction.self.fadeIn(withDuration: 0.5),SKAction.wait(forDuration: 1.0),SKAction.self.fadeOut(withDuration: 1),SKAction.self.removeFromParent()]))
     }
     func mainMenuFunc() {
-        mainMenuS.frame = CGRect (x:screenWidth/2 - 150, y:screenHeight * 0.05 , width: 300, height: 50)
+        mainMenuS.frame = CGRect (x:screenWidth/2 - 150, y:screenHeight * 0.1 , width: 300, height: 50)
         mainMenuS.setTitle("Main Menu", for: UIControl.State.normal)
         mainMenuS.setTitleColor(UIColor.white, for: .normal)
         mainMenuS.layer.cornerRadius = 0
@@ -112,18 +111,7 @@ class AboutScene: SKScene {
         scene?.view?.presentScene(nextScene,transition: transition)
         shootingStarTimer.invalidate()
     }
-    func howToPlay(){
-        HowToButton.frame = CGRect (x: screenWidth/2 - 150, y: screenHeight * 0.75 , width: 300, height: 50)
-        HowToButton.setTitle("How To Play", for: UIControl.State.normal)
-        HowToButton.setTitleColor(UIColor.white, for: .normal)
-        HowToButton.layer.cornerRadius = 0
-        HowToButton.layer.borderWidth = 1
-        HowToButton.layer.borderColor=UIColor.white.cgColor
-        HowToButton.addTarget(self, action: #selector(howtoScene), for: UIControl.Event.touchUpInside)
-        HowToButton.titleLabel!.font = UIFont(name: "Press Start 2P", size: 25)
-        HowToButton.titleLabel!.textAlignment = NSTextAlignment.center
-        self.view!.addSubview(HowToButton)
-    }
+    
     @objc func howtoScene(sender: UIButton!) { // sending the User back to the Game
         let nextScene = HowToScene(size: scene!.size)
         let transition = SKTransition.fade(withDuration: 0.0)

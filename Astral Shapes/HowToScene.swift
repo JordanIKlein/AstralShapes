@@ -17,6 +17,9 @@ var boardofShapestxt = SKLabelNode(fontNamed: "Press Start 2P")
 var scoretimetxt = SKLabelNode(fontNamed: "Press Start 2P")
 let nextButton = UIButton(type: .system)
 let backButton = UIButton(type: .system)
+
+
+
 var currentP = 0
 
 
@@ -52,16 +55,17 @@ class HowToScene: SKScene,SKPhysicsContactDelegate {
                        view.removeFromSuperview()
                    }
         }
-        mainMenuS.frame = CGRect (x:screenWidth/2 - 150, y:screenHeight * 0.05 , width: 300, height: 50)
+        mainMenuS.frame = CGRect (x:screenWidth/2 - 150, y:screenHeight * 0.1 , width: 300, height: 50)
         mainMenuS.setTitle("Main Menu", for: UIControl.State.normal)
         mainMenuS.setTitleColor(UIColor.white, for: .normal)
         mainMenuS.layer.cornerRadius = 0
         mainMenuS.layer.borderWidth = 1
         mainMenuS.layer.borderColor=UIColor.white.cgColor
         mainMenuS.addTarget(self, action: #selector(mainMenuScene), for: UIControl.Event.touchUpInside)
-        mainMenuS.titleLabel!.font = UIFont(name: "Press Start 2P", size: 27)
+        mainMenuS.titleLabel!.font = UIFont(name: "Press Start 2P", size: 25)
         mainMenuS.titleLabel!.textAlignment = NSTextAlignment.center
         self.view!.addSubview(mainMenuS)
+    
         if currentP <= 1 {
             nextButton.frame = CGRect (x:screenWidth/2 + 50, y:round(screenHeight * 0.7) , width: 100, height: 35)
             nextButton.setTitle("Next", for: UIControl.State.normal)
@@ -253,7 +257,7 @@ class HowToScene: SKScene,SKPhysicsContactDelegate {
     }
     @objc func mainMenuScene(sender: UIButton!) { // sending the User back to the Game
         let nextScene = MenuScene(size: scene!.size)
-        let transition = SKTransition.fade(withDuration: 0.5)
+        let transition = SKTransition.fade(withDuration: 0.0)
         nextScene.scaleMode = .aspectFill
         scene?.view?.presentScene(nextScene,transition: transition)
         shootingStarTimer.invalidate()

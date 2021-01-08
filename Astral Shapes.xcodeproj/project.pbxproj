@@ -3,10 +3,13 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		433C099B2969AD066297A540 /* Pods_Astral_Shapes_Astral_ShapesUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4124AFE379FBF3FA893EC9C5 /* Pods_Astral_Shapes_Astral_ShapesUITests.framework */; };
+		8BD70D5061C4381AC3FEFA37 /* Pods_Astral_ShapesTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F4633BDBEFF6AE53005849F /* Pods_Astral_ShapesTests.framework */; };
+		9067FFCAE65094F1CF81678E /* Pods_Astral_Shapes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D93D9CAB8E799B94F8969DFC /* Pods_Astral_Shapes.framework */; };
 		FC11CA43241296F30015324E /* MusicScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC11CA42241296F30015324E /* MusicScene.swift */; };
 		FC11CA45241456830015324E /* Sorry.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = FC11CA44241456830015324E /* Sorry.mp3 */; };
 		FC11CA47241457210015324E /* home.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = FC11CA46241457210015324E /* home.mp3 */; };
@@ -34,6 +37,7 @@
 		FCBF533C23EB8638004EF9E2 /* HowToScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCBF533B23EB8638004EF9E2 /* HowToScene.swift */; };
 		FCBF533E23EB865A004EF9E2 /* AboutScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCBF533D23EB865A004EF9E2 /* AboutScene.swift */; };
 		FCBF534023EB86D7004EF9E2 /* space.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = FCBF533F23EB86D7004EF9E2 /* space.mp3 */; };
+		FCEFFC6725219D7800582F8F /* ad.png in Resources */ = {isa = PBXBuildFile; fileRef = FCEFFC6625219D7800582F8F /* ad.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,6 +58,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		05E1E76096D599EE50228BD2 /* Pods-Astral Shapes-Astral ShapesUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Astral Shapes-Astral ShapesUITests.debug.xcconfig"; path = "Target Support Files/Pods-Astral Shapes-Astral ShapesUITests/Pods-Astral Shapes-Astral ShapesUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		199B380046C1E1A556BC8F88 /* Pods-Astral Shapes.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Astral Shapes.debug.xcconfig"; path = "Target Support Files/Pods-Astral Shapes/Pods-Astral Shapes.debug.xcconfig"; sourceTree = "<group>"; };
+		1E3369D2CBBC41FC0DA3C419 /* Pods-Astral ShapesTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Astral ShapesTests.release.xcconfig"; path = "Target Support Files/Pods-Astral ShapesTests/Pods-Astral ShapesTests.release.xcconfig"; sourceTree = "<group>"; };
+		1FC2F734382C3232368296C6 /* Pods-Astral Shapes.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Astral Shapes.release.xcconfig"; path = "Target Support Files/Pods-Astral Shapes/Pods-Astral Shapes.release.xcconfig"; sourceTree = "<group>"; };
+		2612416108FBF9ED14174C72 /* Pods-Astral ShapesTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Astral ShapesTests.debug.xcconfig"; path = "Target Support Files/Pods-Astral ShapesTests/Pods-Astral ShapesTests.debug.xcconfig"; sourceTree = "<group>"; };
+		4124AFE379FBF3FA893EC9C5 /* Pods_Astral_Shapes_Astral_ShapesUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Astral_Shapes_Astral_ShapesUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7F4633BDBEFF6AE53005849F /* Pods_Astral_ShapesTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Astral_ShapesTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9095B90E7592C4794CCCB1CA /* Pods-Astral Shapes-Astral ShapesUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Astral Shapes-Astral ShapesUITests.release.xcconfig"; path = "Target Support Files/Pods-Astral Shapes-Astral ShapesUITests/Pods-Astral Shapes-Astral ShapesUITests.release.xcconfig"; sourceTree = "<group>"; };
+		D93D9CAB8E799B94F8969DFC /* Pods_Astral_Shapes.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Astral_Shapes.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FC11CA42241296F30015324E /* MusicScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicScene.swift; sourceTree = "<group>"; };
 		FC11CA44241456830015324E /* Sorry.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Sorry.mp3; sourceTree = "<group>"; };
 		FC11CA46241457210015324E /* home.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = home.mp3; sourceTree = "<group>"; };
@@ -61,8 +74,6 @@
 		FC19B84224037A760098675F /* SpeedScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeedScene.swift; sourceTree = "<group>"; };
 		FC19B84424044CB20098675F /* HighscoreScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighscoreScene.swift; sourceTree = "<group>"; };
 		FC19B8462406B7E30098675F /* SettingScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingScene.swift; sourceTree = "<group>"; };
-		FC19B8512406F33A0098675F /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/Main.storyboard; sourceTree = "<group>"; };
-		FC19B8522406F33A0098675F /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		FC3B912B23EB890800547087 /* Fire.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Fire.sks; sourceTree = "<group>"; };
 		FC3B912F23EB8A1E00547087 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = "Astral Shapes/Assets.xcassets"; sourceTree = SOURCE_ROOT; };
 		FC3B913123EB8AAC00547087 /* ArcadeFont.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = ArcadeFont.ttf; sourceTree = "<group>"; };
@@ -87,6 +98,9 @@
 		FCBF533B23EB8638004EF9E2 /* HowToScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HowToScene.swift; sourceTree = "<group>"; };
 		FCBF533D23EB865A004EF9E2 /* AboutScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutScene.swift; sourceTree = "<group>"; };
 		FCBF533F23EB86D7004EF9E2 /* space.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = space.mp3; sourceTree = "<group>"; };
+		FCEFFC6625219D7800582F8F /* ad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ad.png; sourceTree = "<group>"; };
+		FCEFFC7725223E1000582F8F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		FCEFFC7825223E1000582F8F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +108,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9067FFCAE65094F1CF81678E /* Pods_Astral_Shapes.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -101,6 +116,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8BD70D5061C4381AC3FEFA37 /* Pods_Astral_ShapesTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -108,15 +124,40 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				433C099B2969AD066297A540 /* Pods_Astral_Shapes_Astral_ShapesUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6919EB0A15EDED94974F9283 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D93D9CAB8E799B94F8969DFC /* Pods_Astral_Shapes.framework */,
+				4124AFE379FBF3FA893EC9C5 /* Pods_Astral_Shapes_Astral_ShapesUITests.framework */,
+				7F4633BDBEFF6AE53005849F /* Pods_Astral_ShapesTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		A157571F9C23F72C64D702A4 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				199B380046C1E1A556BC8F88 /* Pods-Astral Shapes.debug.xcconfig */,
+				1FC2F734382C3232368296C6 /* Pods-Astral Shapes.release.xcconfig */,
+				05E1E76096D599EE50228BD2 /* Pods-Astral Shapes-Astral ShapesUITests.debug.xcconfig */,
+				9095B90E7592C4794CCCB1CA /* Pods-Astral Shapes-Astral ShapesUITests.release.xcconfig */,
+				2612416108FBF9ED14174C72 /* Pods-Astral ShapesTests.debug.xcconfig */,
+				1E3369D2CBBC41FC0DA3C419 /* Pods-Astral ShapesTests.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		FC92FFB42401CFFF00AEE0E8 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				FCEFFC6625219D7800582F8F /* ad.png */,
 				FC11CA44241456830015324E /* Sorry.mp3 */,
 				FC11CA46241457210015324E /* home.mp3 */,
 				FCBF533F23EB86D7004EF9E2 /* space.mp3 */,
@@ -132,6 +173,8 @@
 				FCBF532823EB8505004EF9E2 /* Astral ShapesUITests */,
 				FCBF530123EB8503004EF9E2 /* Products */,
 				FC3B913123EB8AAC00547087 /* ArcadeFont.ttf */,
+				A157571F9C23F72C64D702A4 /* Pods */,
+				6919EB0A15EDED94974F9283 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -200,9 +243,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = FCBF532E23EB8505004EF9E2 /* Build configuration list for PBXNativeTarget "Astral Shapes" */;
 			buildPhases = (
+				67CA0D9CCE672F50C750BD61 /* [CP] Check Pods Manifest.lock */,
 				FCBF52FC23EB8503004EF9E2 /* Sources */,
 				FCBF52FD23EB8503004EF9E2 /* Frameworks */,
 				FCBF52FE23EB8503004EF9E2 /* Resources */,
+				70727D7536CE6C22521C72AD /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -217,6 +262,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = FCBF533123EB8505004EF9E2 /* Build configuration list for PBXNativeTarget "Astral ShapesTests" */;
 			buildPhases = (
+				9C32DF1139BFA6F93F456E3F /* [CP] Check Pods Manifest.lock */,
 				FCBF531623EB8505004EF9E2 /* Sources */,
 				FCBF531723EB8505004EF9E2 /* Frameworks */,
 				FCBF531823EB8505004EF9E2 /* Resources */,
@@ -235,9 +281,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = FCBF533423EB8505004EF9E2 /* Build configuration list for PBXNativeTarget "Astral ShapesUITests" */;
 			buildPhases = (
+				9D3638FAC0BF08C8B5622A19 /* [CP] Check Pods Manifest.lock */,
 				FCBF532123EB8505004EF9E2 /* Sources */,
 				FCBF532223EB8505004EF9E2 /* Frameworks */,
 				FCBF532323EB8505004EF9E2 /* Resources */,
+				20AA1817411AB212AB21E894 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -256,7 +304,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1130;
-				LastUpgradeCheck = 1130;
+				LastUpgradeCheck = 1200;
 				ORGANIZATIONNAME = JordanKlein;
 				TargetAttributes = {
 					FCBF52FF23EB8503004EF9E2 = {
@@ -279,6 +327,7 @@
 			knownRegions = (
 				en,
 				"es-419",
+				Base,
 			);
 			mainGroup = FCBF52F723EB8503004EF9E2;
 			productRefGroup = FCBF530123EB8503004EF9E2 /* Products */;
@@ -303,6 +352,7 @@
 				FCBF530F23EB8503004EF9E2 /* Main.storyboard in Resources */,
 				FC11CA45241456830015324E /* Sorry.mp3 in Resources */,
 				FCBF534023EB86D7004EF9E2 /* space.mp3 in Resources */,
+				FCEFFC6725219D7800582F8F /* ad.png in Resources */,
 				FCBF530623EB8503004EF9E2 /* GameScene.sks in Resources */,
 				FC3B913023EB8A1F00547087 /* Assets.xcassets in Resources */,
 				FC11CA47241457210015324E /* home.mp3 in Resources */,
@@ -326,6 +376,109 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		20AA1817411AB212AB21E894 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Astral Shapes-Astral ShapesUITests/Pods-Astral Shapes-Astral ShapesUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Astral Shapes-Astral ShapesUITests/Pods-Astral Shapes-Astral ShapesUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Astral Shapes-Astral ShapesUITests/Pods-Astral Shapes-Astral ShapesUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		67CA0D9CCE672F50C750BD61 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Astral Shapes-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		70727D7536CE6C22521C72AD /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Astral Shapes/Pods-Astral Shapes-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Astral Shapes/Pods-Astral Shapes-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Astral Shapes/Pods-Astral Shapes-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9C32DF1139BFA6F93F456E3F /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Astral ShapesTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9D3638FAC0BF08C8B5622A19 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Astral Shapes-Astral ShapesUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		FCBF52FC23EB8503004EF9E2 /* Sources */ = {
@@ -384,7 +537,7 @@
 		FCBF530D23EB8503004EF9E2 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				FC19B8512406F33A0098675F /* en */,
+				FCEFFC7725223E1000582F8F /* Base */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -392,7 +545,7 @@
 		FCBF531223EB8505004EF9E2 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				FC19B8522406F33A0098675F /* en */,
+				FCEFFC7825223E1000582F8F /* Base */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -427,6 +580,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -451,7 +605,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -488,6 +642,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -506,7 +661,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -518,17 +673,18 @@
 		};
 		FCBF532F23EB8505004EF9E2 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 199B380046C1E1A556BC8F88 /* Pods-Astral Shapes.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = P6XKT9A54H;
 				INFOPLIST_FILE = "Astral Shapes/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.5;
+				MARKETING_VERSION = 3.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.JordanKlein.AstralShapes;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -538,17 +694,18 @@
 		};
 		FCBF533023EB8505004EF9E2 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1FC2F734382C3232368296C6 /* Pods-Astral Shapes.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = P6XKT9A54H;
 				INFOPLIST_FILE = "Astral Shapes/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.5;
+				MARKETING_VERSION = 3.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.JordanKlein.AstralShapes;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -558,6 +715,7 @@
 		};
 		FCBF533223EB8505004EF9E2 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2612416108FBF9ED14174C72 /* Pods-Astral ShapesTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -580,6 +738,7 @@
 		};
 		FCBF533323EB8505004EF9E2 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1E3369D2CBBC41FC0DA3C419 /* Pods-Astral ShapesTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -602,6 +761,7 @@
 		};
 		FCBF533523EB8505004EF9E2 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 05E1E76096D599EE50228BD2 /* Pods-Astral Shapes-Astral ShapesUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -622,6 +782,7 @@
 		};
 		FCBF533623EB8505004EF9E2 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9095B90E7592C4794CCCB1CA /* Pods-Astral Shapes-Astral ShapesUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;

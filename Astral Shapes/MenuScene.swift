@@ -10,9 +10,10 @@ import GameplayKit
 import AVFoundation
 
 var highScoreButton = UIButton(type: .system)
-var aboutButton = UIButton(type: .custom)
+let howToPlayButton = UIButton(type: .system)
 var XPButton = UIButton(type: .custom)
 var settingsScene = UIButton(type: .system)
+var aboutButton = UIButton(type: .system)
 var musicTrack = UserDefaults.standard.string(forKey: "musicTrack") ?? "lofimusic1"
 
 class MenuScene: SKScene {
@@ -32,6 +33,7 @@ class MenuScene: SKScene {
         continueRGB = 1
         downbackground()
         addButtons()
+        mainTitle()
         runButton()
         shootingStarTimer = Timer.scheduledTimer(withTimeInterval: 4, repeats: true, block: {_ in self.shootingStar()})
         }
@@ -83,13 +85,7 @@ class MenuScene: SKScene {
         highScoreButton.titleLabel!.font = UIFont(name: "Press Start 2P", size: 25)
         highScoreButton.titleLabel!.textAlignment = NSTextAlignment.center
         self.view!.addSubview(highScoreButton)
-        aboutButton.frame = CGRect (x: screenWidth/2 - 25, y: screenHeight * 0.7 , width: 50, height: 50)
-        aboutButton.layer.cornerRadius = 0
-        aboutButton.layer.borderWidth = 1
-        aboutButton.layer.borderColor=UIColor.white.cgColor
-        aboutButton.setImage(UIImage(named: "questionmark"), for: .normal)
-        aboutButton.addTarget(self, action: #selector(aboutScene), for: UIControl.Event.touchUpInside)
-        self.view!.addSubview(aboutButton)
+        // Settings Button
         settingsScene.frame = CGRect (x: screenWidth/2 - 125, y: screenHeight * 0.6 , width: 250, height: 50)
         settingsScene.setTitle("Settings", for: UIControl.State.normal)
         settingsScene.setTitleColor(UIColor.white, for: .normal)
@@ -100,10 +96,38 @@ class MenuScene: SKScene {
         settingsScene.titleLabel!.font = UIFont(name: "Press Start 2P", size: 25)
         settingsScene.titleLabel!.textAlignment = NSTextAlignment.center
         self.view!.addSubview(settingsScene)
-        
+        // How to Play Button
+        howToPlayButton.frame = CGRect (x: screenWidth/2 - 125, y: screenHeight * 0.7 , width: 250, height: 50)
+        howToPlayButton.layer.cornerRadius = 0
+        howToPlayButton.layer.borderWidth = 1
+        howToPlayButton.layer.borderColor=UIColor.white.cgColor
+        howToPlayButton.titleLabel!.font = UIFont(name: "Press Start 2P", size: 20)
+        howToPlayButton.setTitle("How To Play", for: .normal)
+        howToPlayButton.setTitleColor(UIColor.white, for: .normal)
+        howToPlayButton.titleLabel!.textAlignment = NSTextAlignment.center
+        howToPlayButton.addTarget(self, action: #selector(howToScene), for: UIControl.Event.touchUpInside)
+        self.view!.addSubview(howToPlayButton)
+        // About Button
+        aboutButton.frame = CGRect (x:screenWidth/2 - 125, y:screenHeight * 0.8 , width: 250, height: 50)
+        aboutButton.setTitle("About", for: UIControl.State.normal)
+        aboutButton.setTitleColor(UIColor.white, for: .normal)
+        aboutButton.layer.cornerRadius = 0
+        aboutButton.layer.borderWidth = 1
+        aboutButton.layer.borderColor=UIColor.white.cgColor
+        aboutButton.addTarget(self, action: #selector(aboutScene), for: UIControl.Event.touchUpInside)
+        aboutButton.titleLabel!.font = UIFont(name: "Press Start 2P", size: 20)
+        aboutButton.titleLabel!.textAlignment = NSTextAlignment.center
+        self.view!.addSubview(aboutButton)
     }
-    @objc func aboutScene(sender: UIButton!) { // sending the User back to the Game
+    @objc func aboutScene(sender: UIButton!) { // sending the user to about
         let nextScene = AboutScene(size: scene!.size)
+        let transition = SKTransition.fade(withDuration: 0.0)
+        nextScene.scaleMode = .aspectFill
+        scene?.view?.presentScene(nextScene,transition: transition)
+        shootingStarTimer.invalidate()
+    }
+    @objc func howToScene(sender: UIButton!) { // sending the user to how to
+        let nextScene = HowToScene(size: scene!.size)
         let transition = SKTransition.fade(withDuration: 0.0)
         nextScene.scaleMode = .aspectFill
         scene?.view?.presentScene(nextScene,transition: transition)
@@ -150,7 +174,7 @@ class MenuScene: SKScene {
         }
     }
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-    let touch = touches.first
+        let touch = touches.first
         if let location = touch?.location(in:self) {
         let nodesArray = self.nodes(at:location)
             if nodesArray.first?.name == "playButton" {
@@ -161,5 +185,23 @@ class MenuScene: SKScene {
                 scene?.view?.presentScene(nextScene,transition: transition)
             }
         }
+    }
+    func mainTitle(){
+        let mainText = SKLabelNode(fontNamed: "Press Start 2P")
+        mainText.position = CGPoint(x: screenWidth/2, y: screenHeight * 0.75)
+        mainText.text = "Astral Shapes"
+        mainText.fontSize = 14
+        mainText.zPosition = 10000
+        let arrayOfColors = [UIColor.systemTeal,UIColor.orange,UIColor.green,UIColor.systemPink,UIColor.red]
+        let upScaling = SKAction.scale(by: 2.0, duration: 2.0)
+        let downScaling = SKAction.scale(by: 0.5, duration: 2.0)
+        let colorChange = SKAction.run {
+            let fontColor = arrayOfColors.randomElement()
+            mainText.fontColor = fontColor
+        }
+        //Change colors?
+        let seq = SKAction.sequence([colorChange,upScaling,colorChange,downScaling])
+        mainText.run(SKAction.repeatForever(seq))
+        addChild(mainText)
     }
 }

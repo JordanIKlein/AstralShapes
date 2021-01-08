@@ -206,8 +206,7 @@ class ClassicScene: SKScene, SKPhysicsContactDelegate {
         randomShapes()
     }
     func newSetup(){ // Removes any extra nodes, avoiding SKParent Node issues
-        removeAllActions()
-        removeAllChildren()
+        removeExtras()
         addingPlayerShape()
         runButton()
         addingScoreTimeLabels()
@@ -232,8 +231,7 @@ class ClassicScene: SKScene, SKPhysicsContactDelegate {
     }
     func gameOver(){
         // returnback score
-        removeAllActions()
-        removeAllChildren()
+        removeExtras()
         playButton.removeFromParent()
         scoreAmount.removeFromParent()
         totalTime.removeFromParent()

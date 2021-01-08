@@ -166,7 +166,7 @@ class HighscoreScene: SKScene {
         }
     }
     func mainMenuFunc() {
-        mainMenuS.frame = CGRect (x:screenWidth/2 - 150, y:screenHeight * 0.05 , width: 300, height: 50)
+        mainMenuS.frame = CGRect (x:screenWidth/2 - 150, y:screenHeight * 0.1 , width: 300, height: 50)
         mainMenuS.setTitle("Main Menu", for: UIControl.State.normal)
         mainMenuS.setTitleColor(UIColor.white, for: .normal)
         mainMenuS.layer.cornerRadius = 0
